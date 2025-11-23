@@ -6,6 +6,7 @@ export type UserType = "Buyer" | "Seller" | "Lawyer" | "Admin" | "Guest" | "Agen
 export type Contact = {
     countryCode: string;
     mobile: number;
+    isMobileVerified: boolean;
 };
 
 export const userTypeValues: UserType[] = ["Buyer", "Seller", "Lawyer", "Admin", "Guest", "Agent"];
@@ -15,6 +16,7 @@ export interface User {
     email: string;
     password: string;
     contact: Contact;
+    isEmailVerified: boolean;
     socials?: {
         instagram?: string;
         linkedin?: string;
@@ -25,10 +27,12 @@ export interface User {
     age?: number;
     photoUrl?: string;
     bio?: string;
-    isVerified: boolean;
-    isActive: boolean;
+    account: {
+        isVerified: boolean;
+        isActive: boolean;
+        userType: UserType;
+    };
     address?: Address;
-    userType: UserType;
 }
 
 export interface DbUser extends User, Document {
