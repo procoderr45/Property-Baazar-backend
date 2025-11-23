@@ -18,13 +18,21 @@ const userSchema = new mongoose.Schema<DbUser>(
             mobile: {
                 type: Number,
                 required: [true, "Please provide your mobile number"],
-                unqiue: [true, "Mobile number already in use"],
+                unique: [true, "Mobile number already in use"],
+            },
+            isMobileVerified: {
+                type: Boolean,
+                default: false,
             },
         },
         email: {
             type: String,
             required: [true, "Please provide valid email id"],
             unique: [true, "Email already in use"],
+        },
+        isEmailVerified: {
+            type: Boolean,
+            default: false,
         },
         password: {
             type: String,
@@ -67,18 +75,20 @@ const userSchema = new mongoose.Schema<DbUser>(
                 trim: true,
             },
         },
-        isVerified: {
-            type: Boolean,
-            default: false,
-        },
-        isActive: {
-            type: Boolean,
-            default: true,
-        },
-        userType: {
-            type: String,
-            enum: {
-                values: userTypeValues,
+        account: {
+            isVerified: {
+                type: Boolean,
+                default: false,
+            },
+            isActive: {
+                type: Boolean,
+                default: true,
+            },
+            userType: {
+                type: String,
+                enum: {
+                    values: userTypeValues,
+                },
             },
         },
         socials: {
