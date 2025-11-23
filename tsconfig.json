@@ -1,23 +1,12 @@
 {
-    "compilerOptions": {
-        // File Layout
-        "rootDir": "./src",
-        "outDir": "./dist",
-
-        "module": "nodenext",
-        "target": "esnext",
-        "types": [],
-
-        "noUncheckedIndexedAccess": true,
-        "exactOptionalPropertyTypes": true,
-
-        "strict": true,
-        "jsx": "react-jsx",
-        "verbatimModuleSyntax": true,
-        "isolatedModules": true,
-        "noUncheckedSideEffectImports": true,
-        "moduleDetection": "force",
-        "skipLibCheck": true
-    },
-    "include": ["src/**/*"]
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "es2015",
+    "target": "es2016",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"]
 }
