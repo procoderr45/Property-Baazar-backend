@@ -2,9 +2,10 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    "module": "es2015",
-    "target": "es2016",
+    "module": "nodenext",
+    "target": "es2020",
     "strict": true,
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "skipLibCheck": true
   },
