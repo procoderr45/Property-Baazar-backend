@@ -1,5 +1,12 @@
 import mongoose from "mongoose";
 import { DbUser, userTypeValues } from "../types/user.type.js";
+import {
+    MAX_BIO_LENGTH,
+    MAX_NUMBER_LENGTH,
+    MAX_PIN_CODE_VALUE,
+    validDocumentEntities,
+    validKycStatusTypes,
+} from "../utils/constants.js";
 
 const userSchema = new mongoose.Schema<DbUser>(
     {
@@ -14,11 +21,13 @@ const userSchema = new mongoose.Schema<DbUser>(
                 type: String,
                 required: [true, "Please provide your country code"],
                 trim: true,
+                maxLength: [4, "Country code must be maximum 4 characters long including +"],
             },
             mobile: {
-                type: Number,
+                type: String,
                 required: [true, "Please provide your mobile number"],
                 unique: [true, "Mobile number already in use"],
+                maxLength: [MAX_NUMBER_LENGTH, `Mobile number should be ${MAX_NUMBER_LENGTH}`],
             },
             isMobileVerified: {
                 type: Boolean,
@@ -42,6 +51,7 @@ const userSchema = new mongoose.Schema<DbUser>(
             type: String,
             default: "",
             trim: true,
+            maxLength: [MAX_BIO_LENGTH, `Bio should be contain maximum ${MAX_BIO_LENGTH} characters`],
         },
         age: {
             type: Number,
@@ -63,6 +73,7 @@ const userSchema = new mongoose.Schema<DbUser>(
             },
             pincode: {
                 type: Number,
+                max: [MAX_PIN_CODE_VALUE, `Pin code should not be more than ${MAX_PIN_CODE_VALUE}`],
             },
             state: {
                 type: String,
@@ -90,6 +101,10 @@ const userSchema = new mongoose.Schema<DbUser>(
                     values: userTypeValues,
                 },
             },
+            isDeleted: {
+                type: Boolean,
+                default: false,
+            },
         },
         socials: {
             instagram: String,
@@ -97,6 +112,36 @@ const userSchema = new mongoose.Schema<DbUser>(
             twitter: String,
             linkedin: String,
             facebook: String,
+        },
+        kycDetails: {
+            kycStatus: {
+                type: "string",
+                enum: {
+                    values: validKycStatusTypes,
+                    message: "{VALUE} is not a valid kyc status",
+                },
+                trim: true,
+            },
+            kycDocuments: [
+                {
+                    type: {
+                        type: String,
+                        enum: {
+                            values: validDocumentEntities,
+                            message: "{VALUE} is not a valid kyc document type",
+                        },
+                        trim: true,
+                    },
+                    mediaKey: {
+                        type: String,
+                        default: "",
+                    },
+                    isVerified: {
+                        type: Boolean,
+                        default: false,
+                    },
+                },
+            ],
         },
     },
     { timestamps: true }

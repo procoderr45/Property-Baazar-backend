@@ -1,11 +1,12 @@
 import mongoose, { Document } from "mongoose";
 import { Address } from "./address.type.js";
+import { KycDocumentType, KycStatusType } from "./kyc.type.js";
 
 export type UserType = "Buyer" | "Seller" | "Lawyer" | "Admin" | "Guest" | "Agent";
 
 export type Contact = {
     countryCode: string;
-    mobile: number;
+    mobile: string;
     isMobileVerified: boolean;
 };
 
@@ -31,8 +32,13 @@ export interface User {
         isVerified: boolean;
         isActive: boolean;
         userType: UserType;
+        isDeleted: boolean;
     };
     address?: Address;
+    kycDetails: {
+        kycStatus: KycStatusType;
+        kycDocuments: KycDocumentType[];
+    };
 }
 
 export interface DbUser extends User, Document {
