@@ -1,18 +1,18 @@
-import mongoose, { Document } from "mongoose";
+import { Document } from "mongoose";
 import { Address } from "./address.type.js";
 import { KycDocumentType, KycStatusType } from "./kyc.type.js";
 
-export type UserType = "Buyer" | "Seller" | "Lawyer" | "Admin" | "Guest" | "Agent";
+export type UserAccountType = "Buyer" | "Seller" | "Lawyer" | "Admin" | "Guest" | "Agent";
 
 export type Contact = {
     countryCode: string;
     mobile: string;
-    isMobileVerified: boolean;
+    isMobileVerified?: boolean;
 };
 
-export const userTypeValues: UserType[] = ["Buyer", "Seller", "Lawyer", "Admin", "Guest", "Agent"];
+export const userTypeValues: UserAccountType[] = ["Buyer", "Seller", "Lawyer", "Admin", "Guest", "Agent"];
 
-export interface User {
+export interface UserType {
     name: string;
     email: string;
     password: string;
@@ -28,7 +28,7 @@ export interface User {
     age?: number;
     photoUrl?: string;
     bio?: string;
-    account: {
+    accountStatus: {
         isVerified: boolean;
         isActive: boolean;
         userType: UserType;
@@ -41,7 +41,15 @@ export interface User {
     };
 }
 
-export interface DbUser extends User, Document {
+export interface DbUser extends UserType, Document {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export type UserRegistrationData = Pick<UserType, "email" | "password" | "contact" | "name">;
+
+export type PublicProfileDataType = Pick<UserType, "name" | "socials" | "photoUrl" | "isEmailVerified" | "bio"> & {
+    kycDetails: {
+        kycStatus: KycStatusType;
+    };
+};

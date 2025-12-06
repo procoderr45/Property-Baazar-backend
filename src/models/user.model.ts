@@ -86,7 +86,7 @@ const userSchema = new mongoose.Schema<DbUser>(
                 trim: true,
             },
         },
-        account: {
+        accountStatus: {
             isVerified: {
                 type: Boolean,
                 default: false,
