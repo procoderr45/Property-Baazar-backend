@@ -3,7 +3,7 @@ import { UserRegistrationData } from "../types/user.type";
 import getPublicProfileData from "../utils/modules/user/getPublicProfileData";
 import { validateRegistrationData } from "../utils/validations/auth.validation";
 
-class UserService {
+export class AuthService {
     async registerUser(data: UserRegistrationData) {
         const userRegistrationData: UserRegistrationData = validateRegistrationData(data);
 
