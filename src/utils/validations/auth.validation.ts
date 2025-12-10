@@ -1,4 +1,4 @@
-import { UserRegistrationData } from "../../types/user.type";
+import { UserRegistrationData } from "../../types/user.type.js";
 
 function isEmail(data: string) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
