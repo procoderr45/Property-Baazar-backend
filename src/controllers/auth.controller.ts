@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { catchAsync } from "../utils/error/catchAsync";
-import { authService } from "../services/user.service";
-import sendResponse from "../utils/apiResponse";
-import { PublicProfileDataType } from "../types/user.type";
-import { ApiResponseType } from "../types/response.type";
+import { catchAsync } from "../utils/error/catchAsync.js";
+import { authService } from "../services/user.service.js";
+import sendResponse from "../utils/apiResponse.js";
+import { PublicProfileDataType } from "../types/user.type.js";
+import { ApiResponseType } from "../types/response.type.js";
 
 const registerUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { email, name, password, contact } = req.body;

@@ -1,7 +1,7 @@
-import { userRepository } from "../repositories/user.repository";
-import { UserRegistrationData } from "../types/user.type";
-import getPublicProfileData from "../utils/modules/user/getPublicProfileData";
-import { validateRegistrationData } from "../utils/validations/auth.validation";
+import { userRepository } from "../repositories/user.repository.js";
+import { UserRegistrationData } from "../types/user.type.js";
+import getPublicProfileData from "../utils/modules/user/getPublicProfileData.js";
+import { validateRegistrationData } from "../utils/validations/auth.validation.js";
 
 class AuthService {
     async registerUser(data: UserRegistrationData) {

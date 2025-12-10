@@ -1,4 +1,4 @@
-import { DbUser, PublicProfileDataType } from "../../../types/user.type";
+import { DbUser, PublicProfileDataType } from "../../../types/user.type.js";
 import { publicProfileFields } from "../../constants.js";
 
 export default function (userData: DbUser): PublicProfileDataType {
