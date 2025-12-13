@@ -110,36 +110,6 @@ const userSchema = new mongoose.Schema<DbUser>(
             linkedin: String,
             facebook: String,
         },
-        kycDetails: {
-            kycStatus: {
-                type: "string",
-                enum: {
-                    values: validKycStatusTypes,
-                    message: "{VALUE} is not a valid kyc status",
-                },
-                trim: true,
-            },
-            kycDocuments: [
-                {
-                    type: {
-                        type: String,
-                        enum: {
-                            values: validDocumentEntities,
-                            message: "{VALUE} is not a valid kyc document type",
-                        },
-                        trim: true,
-                    },
-                    mediaKey: {
-                        type: String,
-                        default: "",
-                    },
-                    isVerified: {
-                        type: Boolean,
-                        default: false,
-                    },
-                },
-            ],
-        },
     },
     { timestamps: true }
 );
