@@ -1,4 +1,5 @@
 import { UserRegistrationData } from "../../types/user.type.js";
+import { AppError } from "../error/AppError.js";
 
 function isEmail(data: string) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

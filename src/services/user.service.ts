@@ -1,5 +1,6 @@
 import { userRepository } from "../repositories/user.repository.js";
 import { UserRegistrationData } from "../types/user.type.js";
+import { AppError } from "../utils/error/AppError.js";
 import getPublicProfileData from "../utils/modules/user/getPublicProfileData.js";
 import { validateRegistrationData } from "../utils/validations/auth.validation.js";
 
