@@ -39,6 +39,10 @@ class AuthService {
             throw new AppError("Invalid credentials", 400);
         }
 
+        if(existingUser.accountStatus.isDeleted) {
+            throw new AppError("Invalid credentials or unable to access your account", 400)
+        }
+
         let isPasswordMatch = existingUser.password === password;
         if (!isPasswordMatch) {
             throw new AppError("Invalid credentials", 400);
