@@ -53,3 +53,8 @@ export type PublicProfileDataType = Pick<UserType, "name" | "socials" | "photoUr
         kycStatus: KycStatusType;
     };
 };
+
+export type LoginRequestType = {
+    email: string;
+    password: string;
+}

@@ -10,7 +10,6 @@ export default function handleError(err: AppError | Error, req: Request, res: Re
             message: err.message,
             status: "error",
         }
-        console.log("Returing error", err.message)
         return sendResponse(res, err.statusCode, response)
     }
 
