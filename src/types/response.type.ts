@@ -3,3 +3,8 @@ export type ApiResponseType<T> = {
     message?: string;
     data?: T;
 };
+
+export type AppErrorType<T> = {
+    message?: string;
+    statusCode?: number;
+}

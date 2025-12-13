@@ -68,7 +68,6 @@ const userSchema = new mongoose.Schema<DbUser>(
             },
             city: {
                 type: String,
-                required: [true, "Please provide your city"],
                 trim: true,
             },
             pincode: {
@@ -77,14 +76,12 @@ const userSchema = new mongoose.Schema<DbUser>(
             },
             state: {
                 type: String,
-                required: [true, "Please provide state"],
                 trim: true,
             },
             country: {
                 type: String,
-                required: [true, "Please provide country"],
                 trim: true,
-            },
+            }
         },
         accountStatus: {
             isVerified: {
