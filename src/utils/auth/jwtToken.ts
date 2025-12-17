@@ -8,3 +8,9 @@ export function generateJwtToken(userId: string) {
 
     return token;
 }
+
+export function verifyJwtToken(token: string) {
+    const decoded = jwt.verify(token, getTypedEnv().JWT_SECRET_KEY)
+
+    return decoded;
+}

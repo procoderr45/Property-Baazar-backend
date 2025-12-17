@@ -1,6 +1,6 @@
 import { userRepository } from "../repositories/user.repository.js";
 import { LoginRequestType, UserRegistrationData } from "../types/user.type.js";
-import { generateJwtToken } from "../utils/auth/generateJwtToken.js";
+import { generateJwtToken } from "../utils/auth/jwtToken.js";
 import setCookie from "../utils/auth/setCookie.js";
 import { AppError } from "../utils/error/AppError.js";
 import getPublicProfileData from "../utils/modules/user/getPublicProfileData.js";
