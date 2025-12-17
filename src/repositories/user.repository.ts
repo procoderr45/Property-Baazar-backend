@@ -17,6 +17,12 @@ class UserRepository {
 
         return user;
     }
+
+    async findByUserId(userId: string): Promise<DbUser | null> {
+        const user = await UserModel.findById(userId);
+
+        return user;
+    }
 }
 
 export const userRepository = new UserRepository();
