@@ -4,6 +4,9 @@ import sendResponse from "../utils/apiResponse.js";
 import { PublicProfileDataType } from "../types/user.type.js";
 import { ApiResponseType } from "../types/response.type.js";
 import { AppError } from "../utils/error/AppError.js";
+import { userRepository } from "../repositories/user.repository.js";
+import { userService } from "../services/user.service.js";
+import getPublicProfileData from "../utils/modules/user/getPublicProfileData.js";
 
 const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
@@ -22,6 +25,22 @@ const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFu
     return sendResponse(res, 200, responseData)
 })
 
+const getUserProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const { userId } = req.params;
+
+    const userProfile = await userService.getUserById(userId);
+
+    const userProfileApiResponse: ApiResponseType<PublicProfileDataType> = {
+        message: "User profile found",
+        status: "success",
+        data: userProfile
+    };
+
+    return sendResponse(res, 200, userProfileApiResponse);
+
+})
+
 export default {
-    getMyProfile
+    getMyProfile,
+    getUserProfile
 }
