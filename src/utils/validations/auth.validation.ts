@@ -1,4 +1,4 @@
-import { UserRegistrationData } from "../../types/user.type.js";
+import { UserRegistrationData, userTypeValues } from "../../types/user.type.js";
 import { AppError } from "../error/AppError.js";
 
 export function isEmail(data: string) {
@@ -12,7 +12,7 @@ const validateRegistrationData = (data: UserRegistrationData): UserRegistrationD
         throw new AppError("Please provide all registration data", 400, true);
     }
 
-    const { email, name, password, contact } = data;
+    const { email, name, password, contact, role } = data;
     const { countryCode, mobile } = contact;
 
     if (!email.trim() || !isEmail(email)) {
@@ -34,11 +34,16 @@ const validateRegistrationData = (data: UserRegistrationData): UserRegistrationD
         throw new AppError("Please provide valid contact number", 400, true);
     }
 
+    if (!role || !userTypeValues.includes(role)) {
+        throw new AppError("Please provide valid role", 400);
+    }
+
     return {
         email,
         name,
         password,
         contact,
+        role
     };
 };
 

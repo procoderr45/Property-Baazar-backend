@@ -10,6 +10,7 @@ export const publicProfileFields = [
     "_id",
     "contact.isMobileVerified",
     "isEmailVerified",
+    "role",
     "bio",
     "photoUrl",
     "accountStatus",

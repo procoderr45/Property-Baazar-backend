@@ -14,7 +14,8 @@ export default function handleError(err: AppError | Error, req: Request, res: Re
     }
 
     return res.status(400).send({
-        message: err.message || "Something went wrong"
+        message: err.message || "Something went wrong",
+        status: "fail"
     })
 
 }
