@@ -5,5 +5,6 @@ import isLoggedIn from "../middlewares/isLoggedIn.js";
 const router = express.Router();
 
 router.get("/profile/my", isLoggedIn, userController.getMyProfile);
+router.get("/profile/:userId", userController.getUserProfile);
 
 export default router;
