@@ -2,7 +2,7 @@ import { Document } from "mongoose";
 import { Address } from "./address.type.js";
 import { KycDocumentType, KycStatusType } from "./kyc.type.js";
 
-export type UserAccountType = "Buyer" | "Seller" | "Lawyer" | "Admin" | "Guest" | "Agent";
+export type UserAccountType = "buyer" | "seller" | "lawyer" | "admin" | "guest" | "agent" | "user" | "home_service_provider" | "consultant";
 
 export type Contact = {
     countryCode: string;
@@ -10,13 +10,14 @@ export type Contact = {
     isMobileVerified?: boolean;
 };
 
-export const userTypeValues: UserAccountType[] = ["Buyer", "Seller", "Lawyer", "Admin", "Guest", "Agent"];
+export const userTypeValues: UserAccountType[] = ["user", "buyer", "seller", "lawyer", "admin", "guest", "agent", "home_service_provider", "consultant"];
 
 export interface UserType {
     name: string;
     email: string;
     password: string;
     contact: Contact;
+    role: UserAccountType;
     isEmailVerified: boolean;
     socials?: {
         instagram?: string;
@@ -46,9 +47,9 @@ export interface DbUser extends UserType, Document {
     updatedAt: Date;
 }
 
-export type UserRegistrationData = Pick<UserType, "email" | "password" | "contact" | "name">;
+export type UserRegistrationData = Pick<UserType, "email" | "password" | "contact" | "name" | "role">;
 
-export type PublicProfileDataType = Pick<UserType, "name" | "socials" | "photoUrl" | "isEmailVerified" | "bio"> & {
+export type PublicProfileDataType = Pick<UserType, "name" | "socials" | "photoUrl" | "isEmailVerified" | "bio" | "role"> & {
     kycDetails: {
         kycStatus: KycStatusType;
     };

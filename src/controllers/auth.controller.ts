@@ -8,13 +8,14 @@ import setCookie from "../utils/auth/setCookie.js";
 import getPublicProfileData from "../utils/modules/user/getPublicProfileData.js";
 
 const registerUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const { email, name, password, contact } = req.body;
+    const { email, name, password, contact, role } = req.body;
 
     const newUser: PublicProfileDataType = await authService.registerUser({
         email,
         name,
         contact,
         password,
+        role
     });
 
     const response: ApiResponseType<PublicProfileDataType> = {

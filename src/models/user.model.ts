@@ -4,8 +4,6 @@ import {
     MAX_BIO_LENGTH,
     MAX_NUMBER_LENGTH,
     MAX_PIN_CODE_VALUE,
-    validDocumentEntities,
-    validKycStatusTypes,
 } from "../utils/constants.js";
 
 const userSchema = new mongoose.Schema<DbUser>(
@@ -46,6 +44,14 @@ const userSchema = new mongoose.Schema<DbUser>(
         password: {
             type: String,
             required: [true, "Please provide password"],
+        },
+        role: {
+            type: String,
+            enum: {
+                values: ["buyer", "seller", "user", "guest", "admin", "lawyer", "home_service_provide", "consultant"]
+            },
+            default: "user",
+            trim: true
         },
         bio: {
             type: String,
