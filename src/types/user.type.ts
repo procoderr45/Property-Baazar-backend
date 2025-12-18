@@ -2,7 +2,7 @@ import { Document } from "mongoose";
 import { Address } from "./address.type.js";
 import { KycDocumentType, KycStatusType } from "./kyc.type.js";
 
-export type UserAccountType = "buyer" | "seller" | "lawyer" | "admin" | "guest" | "broker" | "user" | "home_service_provider" | "consultant";
+export type UserAccountType = "buyer" | "seller" | "lawyer" | "admin" | "broker" | "user" | "home_service_provider" | "consultant";
 
 export type Contact = {
     countryCode: string;
@@ -10,7 +10,7 @@ export type Contact = {
     isMobileVerified?: boolean;
 };
 
-export const userTypeValues: UserAccountType[] = ["user", "buyer", "seller", "lawyer", "admin", "guest", "broker", "home_service_provider", "consultant"];
+export const userTypeValues: UserAccountType[] = ["user", "buyer", "seller", "lawyer", "admin", "broker", "home_service_provider", "consultant"];
 
 export interface UserType {
     name: string;
