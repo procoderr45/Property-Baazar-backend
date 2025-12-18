@@ -36,6 +36,8 @@ const userSchema = new mongoose.Schema<DbUser>(
             type: String,
             required: [true, "Please provide valid email id"],
             unique: [true, "Email already in use"],
+            trim: true,
+            match: [/^\S+@\S+\.\S+$/, "Please provide a valid email"],
         },
         isEmailVerified: {
             type: Boolean,
@@ -48,7 +50,7 @@ const userSchema = new mongoose.Schema<DbUser>(
         role: {
             type: String,
             enum: {
-                values: ["buyer", "seller", "user", "guest", "admin", "lawyer", "home_service_provider", "consultant", "broker"]
+                values: userTypeValues
             },
             default: "user",
             trim: true
@@ -110,15 +112,40 @@ const userSchema = new mongoose.Schema<DbUser>(
             },
         },
         socials: {
-            instagram: String,
-            youtube: String,
-            twitter: String,
-            linkedin: String,
-            facebook: String,
-        },
+            instagram: {
+                type: String,
+                trim: true,
+                match: [/^https?:\/\//, "Invalid Instagram URL"]
+            },
+            youtube: {
+                type: String,
+                trim: true,
+                match: [/^https?:\/\//, "Invalid YouTube URL"]
+            },
+            twitter: {
+                type: String,
+                trim: true,
+                match: [/^https?:\/\//, "Invalid Twitter URL"]
+            },
+            linkedin: {
+                type: String,
+                trim: true,
+                match: [/^https?:\/\//, "Invalid LinkedIn URL"]
+            },
+            facebook: {
+                type: String,
+                trim: true,
+                match: [/^https?:\/\//, "Invalid Facebook URL"]
+            }
+        }
+
     },
     { timestamps: true }
 );
+
+userSchema.index({ role: 1 });
+
+userSchema.index({ name: "text" });
 
 const UserModel = mongoose.model<DbUser>("User", userSchema);
 
