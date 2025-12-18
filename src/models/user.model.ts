@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema<DbUser>(
         role: {
             type: String,
             enum: {
-                values: ["buyer", "seller", "user", "guest", "admin", "lawyer", "home_service_provide", "consultant"]
+                values: ["buyer", "seller", "user", "guest", "admin", "lawyer", "home_service_provider", "consultant", "broker"]
             },
             default: "user",
             trim: true
