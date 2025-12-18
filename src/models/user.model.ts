@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema<DbUser>(
             type: String,
             required: [true, "Please provide your name"],
             minLength: [3, "Name should be atleast 3 characters long"],
+            maxLength: [50, "Name cannot exceed 50 characters"],
             trim: true,
         },
         contact: {
@@ -38,6 +39,14 @@ const userSchema = new mongoose.Schema<DbUser>(
             unique: [true, "Email already in use"],
             trim: true,
             match: [/^\S+@\S+\.\S+$/, "Please provide a valid email"],
+        },
+        followersCount: {
+            type: Number,
+            default: 0,
+        },
+        followingCount: {
+            type: Number,
+            default: 0
         },
         isEmailVerified: {
             type: Boolean,

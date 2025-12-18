@@ -19,6 +19,8 @@ export interface UserType {
     contact: Contact;
     role: UserAccountType;
     isEmailVerified: boolean;
+    followersCount: number;
+    followingCount: number;
     socials?: {
         instagram?: string;
         linkedin?: string;
