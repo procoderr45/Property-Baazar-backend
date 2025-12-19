@@ -149,7 +149,7 @@ const userSchema = new mongoose.Schema<DbUser>(
         }
 
     },
-    { timestamps: true }
+    { timestamps: true, strict: "throw" }
 );
 
 userSchema.index({ role: 1 });

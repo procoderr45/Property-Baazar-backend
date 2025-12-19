@@ -40,7 +40,28 @@ const getUserProfile = catchAsync(async (req: Request, res: Response, next: Next
 
 })
 
+const updateUserProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user;
+
+    if (!user || !user._id) {
+        throw new AppError("Please provide user id", 400);
+    }
+
+    const newProfileData = req.body;
+
+    const newUpdatedProfileData = await userService.updateProfile(user._id.toString(), newProfileData);
+
+    const apiResponse: ApiResponseType<PublicProfileDataType> = {
+        status: "success",
+        data: newUpdatedProfileData,
+        message: " "
+    }
+
+    return sendResponse(res, 200, apiResponse);
+})
+
 export default {
     getMyProfile,
-    getUserProfile
+    getUserProfile,
+    updateUserProfile
 }
