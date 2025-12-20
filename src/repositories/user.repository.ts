@@ -25,9 +25,11 @@ class UserRepository {
     }
 
     async updateUserProfile(userId: string, newProfileData: UpdateProfileType): Promise<DbUser | null> {
-        const updatedUserProfile = await UserModel.findByIdAndUpdate(userId, newProfileData, {
+        const updatedUserProfile = await UserModel.findByIdAndUpdate(userId, {
+            $set: newProfileData
+        }, {
             runValidators: true,
-            returnDocument: 'after'
+            returnDocument: 'after',
         })
 
         return updatedUserProfile;

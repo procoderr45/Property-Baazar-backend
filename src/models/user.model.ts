@@ -6,6 +6,39 @@ import {
     MAX_PIN_CODE_VALUE,
 } from "../utils/constants.js";
 
+import { Address } from "../types/address.type.js";
+
+const addressSchema = new mongoose.Schema<Address>({
+    street: {
+        type: String,
+        trim: true,
+        default: "",
+        maxLength: [200, "Street length should not exceed 200 characters"]
+    },
+    city: {
+        type: String,
+        trim: true,
+        maxLength: [100, "City length should not exceed 100 characters"],
+        minLength: [3, "City should be atleast 3 characters long"]
+    },
+    pincode: {
+        type: Number,
+        max: [MAX_PIN_CODE_VALUE, `Pincode must be greater than ${MAX_PIN_CODE_VALUE}`]
+    },
+    state: {
+        type: String,
+        trim: true,
+        maxLength: [130, "State length should not exceed 130 characters"],
+        minLength: [3, "State should be atleast 3 charactes long"]
+    },
+    country: {
+        type: String,
+        trim: true,
+        maxLength: [130, "Country name should not exceed more than 120 characters"],
+        minLength: [3, "Country name must be atleast 3 characters long"]
+    }
+}, { _id: false, strict: "throw" })
+
 const userSchema = new mongoose.Schema<DbUser>(
     {
         name: {
@@ -74,31 +107,14 @@ const userSchema = new mongoose.Schema<DbUser>(
             type: Number,
         },
         photoUrl: {
+            //TODO: add regex for validation to check if it is url
             type: String,
             default: "",
             trim: true,
         },
         address: {
-            street: {
-                type: String,
-                trim: true,
-            },
-            city: {
-                type: String,
-                trim: true,
-            },
-            pincode: {
-                type: Number,
-                max: [MAX_PIN_CODE_VALUE, `Pin code should not be more than ${MAX_PIN_CODE_VALUE}`],
-            },
-            state: {
-                type: String,
-                trim: true,
-            },
-            country: {
-                type: String,
-                trim: true,
-            }
+            type: addressSchema,
+            required: false
         },
         accountStatus: {
             isVerified: {
