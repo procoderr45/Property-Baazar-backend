@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.get("/profile/my", isLoggedIn, userController.getMyProfile);
 router.get("/profile/:userId", userController.getUserProfile);
+router.patch("/profile/edit", isLoggedIn, userController.updateUserProfile);
 
 export default router;

@@ -51,7 +51,7 @@ export interface DbUser extends UserType, Document {
 
 export type UserRegistrationData = Pick<UserType, "email" | "password" | "contact" | "name" | "role">;
 
-export type PublicProfileDataType = Pick<UserType, "name" | "socials" | "photoUrl" | "isEmailVerified" | "bio" | "role"> & {
+export type PublicProfileDataType = Pick<DbUser, "_id" | "name" | "socials" | "photoUrl" | "isEmailVerified" | "bio" | "role"> & {
     kycDetails: {
         kycStatus: KycStatusType;
     };
@@ -61,3 +61,11 @@ export type LoginRequestType = {
     email: string;
     password: string;
 }
+
+export type UpdateProfileType = Partial<Omit<PublicProfileDataType, "isEmailVerified" | "kycDetails">> & {
+    contact: Contact,
+    age: Number,
+    address: Address
+};
+
+export type UpdateAllowedFieldKey = keyof UpdateProfileType;
