@@ -1,4 +1,4 @@
-import { UpdateProfileType } from "../types/user.type.js";
+import { SearchProfileKeywordType, UpdateProfileType } from "../types/user.type.js";
 
 export const MAX_NUMBER_LENGTH = 12;
 export const MAX_BIO_LENGTH = 500;

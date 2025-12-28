@@ -69,3 +69,14 @@ export type UpdateProfileType = Partial<Omit<PublicProfileDataType, "isEmailVeri
 };
 
 export type UpdateAllowedFieldKey = keyof UpdateProfileType;
+
+export type SearchProfileKeywordType = "name" | "role" | "kycStatus";
+
+export type SearchProfileFilters = Partial<Record<SearchProfileKeywordType, string | Object>> & {
+    address: {
+        pincode: number,
+        city: string,
+        state: string,
+        country: string;
+    }
+}

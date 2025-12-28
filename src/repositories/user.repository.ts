@@ -1,5 +1,5 @@
 import UserModel from "../models/user.model.js";
-import { DbUser, UpdateProfileType, UserRegistrationData, UserType } from "../types/user.type.js";
+import { DbUser, SearchProfileFilters, UpdateProfileType, UserRegistrationData, UserType } from "../types/user.type.js";
 
 class UserRepository {
     async register(user: UserRegistrationData): Promise<DbUser> {
@@ -33,6 +33,12 @@ class UserRepository {
         })
 
         return updatedUserProfile;
+    }
+
+    async searchProfiles(profileFilters: any) {
+        const searchResult = await UserModel.find(profileFilters, "-email -password -updatedAt -contact -age")
+        
+        return searchResult;
     }
 }
 
