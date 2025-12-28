@@ -172,6 +172,8 @@ userSchema.index({ role: 1 });
 
 userSchema.index({ name: "text" });
 
+userSchema.index({ "address.pincode": 1 })
+
 const UserModel = mongoose.model<DbUser>("User", userSchema);
 
 export default UserModel;

@@ -1,5 +1,5 @@
 import { userRepository } from "../repositories/user.repository.js";
-import { PublicProfileDataType, UpdateProfileType } from "../types/user.type.js";
+import { PublicProfileDataType, SearchProfileFilters, SearchProfileKeywordType, UpdateProfileType } from "../types/user.type.js";
 import sendResponse from "../utils/apiResponse.js";
 import { AppError } from "../utils/error/AppError.js";
 import getPublicProfileData from "../utils/modules/user/getPublicProfileData.js";
@@ -24,26 +24,54 @@ class UserService {
 
     async updateProfile(userId: string, newProfileData: UpdateProfileType) {
 
-        if(!newProfileData) {
+        if (!newProfileData) {
             throw new AppError("Please provide valid data to update profile", 400);
         }
 
         let isUpdateRequestedDataValid = validateProfileUpdateData(newProfileData);
 
-        if(!isUpdateRequestedDataValid) {
+        if (!isUpdateRequestedDataValid) {
             throw new AppError("Update is not allowed", 403);
         }
 
         //TODO: add update data validation later
         const updatedUser = await userRepository.updateUserProfile(userId, newProfileData);
 
-        if(!updatedUser) {
+        if (!updatedUser) {
             throw new AppError("User profile not updated or no user found", 400);
         }
 
         const publicUserData = getPublicProfileData(updatedUser);
 
         return publicUserData;
+    }
+
+    async searchProfiles(searchFilters: SearchProfileFilters) {
+        const query: any = {};
+
+        Object.entries(searchFilters).forEach(([key, value]) => {
+            if (!value) return;
+
+            if (key.startsWith("address.")) {
+                if (key === "address.pincode") {
+                    query[key] = Number(value);
+                } else {
+                    query[key] = {
+                        $regex: value as string,
+                        $options: "i",
+                        $exists: true
+                    };
+                }
+            }
+            else {
+                query[key] = value;
+            }
+        });
+
+        const searchResult = await userRepository.searchProfiles(query)
+
+        return searchResult;
+
     }
 }
 

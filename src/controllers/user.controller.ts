@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../utils/error/catchAsync.js";
 import sendResponse from "../utils/apiResponse.js";
-import { PublicProfileDataType } from "../types/user.type.js";
+import { DbUser, PublicProfileDataType, SearchProfileFilters } from "../types/user.type.js";
 import { ApiResponseType } from "../types/response.type.js";
 import { AppError } from "../utils/error/AppError.js";
 import { userRepository } from "../repositories/user.repository.js";
 import { userService } from "../services/user.service.js";
 import getPublicProfileData from "../utils/modules/user/getPublicProfileData.js";
+import UserModel from "../models/user.model.js";
 
 const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
@@ -27,6 +28,7 @@ const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFu
 
 const getUserProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.params;
+    console.log("User id", userId)
 
     const userProfile = await userService.getUserById(userId);
 
@@ -60,8 +62,24 @@ const updateUserProfile = catchAsync(async (req: Request, res: Response, next: N
     return sendResponse(res, 200, apiResponse);
 })
 
+const searchProfiles = catchAsync(async(req: Request, res: Response, next: NextFunction) => {
+    const searchFilters = req.query as unknown as SearchProfileFilters;
+
+    const searchResult = await userService.searchProfiles(searchFilters);
+
+    const apiResponse: ApiResponseType<any> = {
+        status: "success",
+        message: "Users found",
+        data: searchResult
+    }
+
+    return sendResponse(res, 200, apiResponse);
+
+})
+
 export default {
     getMyProfile,
     getUserProfile,
-    updateUserProfile
+    updateUserProfile,
+    searchProfiles
 }

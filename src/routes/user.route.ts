@@ -4,6 +4,8 @@ import isLoggedIn from "../middlewares/isLoggedIn.js";
 
 const router = express.Router();
 
+router.get("/profile/search", userController.searchProfiles)
+
 router.get("/profile/my", isLoggedIn, userController.getMyProfile);
 router.get("/profile/:userId", userController.getUserProfile);
 router.patch("/profile/edit", isLoggedIn, userController.updateUserProfile);

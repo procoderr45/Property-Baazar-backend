@@ -30,7 +30,7 @@ const validateRegistrationData = (data: UserRegistrationData): UserRegistrationD
         );
     }
 
-    if (!contact || !countryCode || !countryCode.trim() || mobile.length > 12 || mobile.length < 10) {
+    if (!contact || !countryCode || !countryCode.trim() || mobile.length > 12 || mobile.length < 6) {
         throw new AppError("Please provide valid contact number", 400, true);
     }
 
