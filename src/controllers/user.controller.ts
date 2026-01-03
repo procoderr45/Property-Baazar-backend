@@ -17,9 +17,11 @@ const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFu
         throw new AppError("Please login first", 403);
     }
 
-    const responseData: ApiResponseType<PublicProfileDataType> = {
+    const responseData: ApiResponseType<{user: PublicProfileDataType}> = {
         status: "success",
-        data: userData,
+        data: {
+            user:userData
+        },
         message: "User profile found"
     }
 
@@ -28,7 +30,6 @@ const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFu
 
 const getUserProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.params;
-    console.log("User id", userId)
 
     const userProfile = await userService.getUserById(userId);
 
