@@ -27,9 +27,8 @@ export default async function isLoggedIn(req: Request, res: Response, next: Next
         throw new AppError("Please login first", 403);
     }
 
-    const publicUserData = getPublicProfileData(user)
-
-    req.user = publicUserData;
+    //TODO: attach only required fields
+    req.user = user;
 
     next();
 

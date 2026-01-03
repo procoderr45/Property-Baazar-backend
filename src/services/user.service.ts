@@ -59,7 +59,6 @@ class UserService {
                     query[key] = {
                         $regex: value as string,
                         $options: "i",
-                        $exists: true
                     };
                 }
             }

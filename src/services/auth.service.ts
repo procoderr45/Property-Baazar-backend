@@ -16,6 +16,8 @@ class AuthService {
             throw new AppError("User with this email already exists", 409, true);
         }
 
+        //TODO: hash password and validation registration data strictly
+
         const newUser = await userRepository.register(userRegistrationData);
 
         const publicUserData = getPublicProfileData(newUser);
