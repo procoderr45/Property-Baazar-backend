@@ -38,3 +38,18 @@ export const defaultCookieOptions = {
     sameSite: "lax" as const,
     secure: process.env.NODE_NEV === "production"
 };
+
+export const validImageUploadContentTypes = ["image/png", "image/jpeg", "image/webp", "image/avif"] as const;
+export const validVideoUploadContentTypes = ["video/mp4"] as const;
+
+export const validFileContentTypes = [...validImageUploadContentTypes, ...validVideoUploadContentTypes];
+export const validFileTypes = ["image", "video"] as const;
+
+export const validImageExtensions = ["jpeg", "jpg", "webp", "avif"] as const;
+export const validVideoExtensions = ["mp4"] as const;
+export const validFileExtensions = [...validImageExtensions, ...validVideoExtensions] as  const;
+
+export const MAX_IMAGE_SIZE_LIMIT = 10; // in MB
+export const MAX_VIDEO_SIZE_LIMIT = 100; // in MB
+
+export const BASE_BUCKET_KEY = "uploads"

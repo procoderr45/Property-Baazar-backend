@@ -18,7 +18,8 @@ export function getTypedEnv() {
         JWT_SECRET_KEY: getEnv("JWT_SECRET_KEY"),
         AWS_ACCESS_KEY: getEnv("AWS_ACCESS_KEY"),
         AWS_SECRET_KEY: getEnv("AWS_SECRET_KEY"),
-        AWS_REGION: getEnv("AWS_REGION", "ap-south-1")
+        AWS_REGION: getEnv("AWS_REGION", "ap-south-1"),
+        AWS_BUCKET: getEnv("AWS_BUCKET")
         // STRIPE_SECRET_KEY: getEnv("STRIPE_ACCESS_KEY"),
     };
 }
