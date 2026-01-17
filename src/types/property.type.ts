@@ -53,7 +53,7 @@ export type PropertyGeoLocation = {
 
 export type PropertySellType = "sell" | "rent" | "contract";
 
-export type PropertyType = {
+export type AddPropertyType = {
     title: string;
     description: string;
     price: number;
@@ -72,11 +72,16 @@ export type PropertyType = {
     priceNegotiable: boolean;
     maintainanceCost?: number;
     securityCost?: number;
+    sellType: PropertySellType;
+}
+
+export type PropertyType = AddPropertyType & {
+    
     verificationStatus?: PropertyVerificationStatus;
+    isDeleted?: boolean;
     likesCount?: number;
     shareCount?: number;
     reportCount?: number;
     status: PropertyStatus;
-    sellType: PropertySellType;
     managedBy: string; // id of user who have posted this property
 }
