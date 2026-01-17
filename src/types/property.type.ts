@@ -1,0 +1,82 @@
+import { validCommercialProperties, validPlotProperties, validPropertyCategories, validResidentialProperties } from "../utils/modules/property/property.constants.js";
+
+// Types for property type
+export type PropertyCategoryType = typeof validPropertyCategories[number];
+export type ResidentialPropertyType = typeof validResidentialProperties[number];
+export type CommercialPropertyType = typeof validCommercialProperties[number];
+export type PlotPropertyType = typeof validPlotProperties[number];
+
+//Types for property furnishing
+export type PropertyFurnishingStatus = "fully_furnished" | "semi_furnished" | "un_furnished";
+
+//Type for property facing direction
+export type PropertyFacingDirection = "south" | "east" | "west" | "north";
+
+//Type for property ownership
+export type PropertyOwnershipType = "owned" | "leased" | "authorised_agent";
+
+export type Amenity = {
+    title: string;
+    iconUrl: string;
+}
+
+export type PropertyAmenity = {
+    amenity: string; // id of amenity stored in mongodb
+    referenceLink?: string;
+    attachments?: string[]; // this will be array of links of file uploaded on S3 bucket
+    description?: string;
+}
+
+export type PropertyFeature = {
+    title: string;
+    iconUrl: string;
+    type: "amenity" | "nearby_attraction";
+}
+
+
+export type PropertyNearByAttraction = {
+    attraction: string; // id of near by attraction stored in NearByAttractions collection
+    distance: number; // distance from property location to attraction in KMs
+    description?: string;
+    referenceLink?: string;
+    attachments?: string[] // links of files store on s3 bucket, uploaded by seller or agent
+}
+
+export type PropertyVerificationStatus = "pending" | "approved" | "rejected" | "paused"
+
+export type PropertyStatus = "active" | "draft" | "inactive" | "sold" | "rented" | "expired";
+
+export type PropertyGeoLocation = {
+    latitude: number;
+    longitude: number;
+}
+
+export type PropertySellType = "sell" | "rent" | "contract";
+
+export type PropertyType = {
+    title: string;
+    description: string;
+    price: number;
+    location: string;
+    category: PropertyCategoryType;
+    type: ResidentialPropertyType | CommercialPropertyType | PlotPropertyType,
+    googleMapLink: string;
+    geoLocation: PropertyGeoLocation;
+    furnishingStatus?: PropertyFurnishingStatus;
+    areaInSquareMeter: number;
+    facing?: PropertyFacingDirection;
+    ownership: PropertyOwnershipType;
+    amenities: PropertyAmenity[];
+    nearByAttractions?: PropertyNearByAttraction[];
+    age?: number; // age of property which represents how old is property but only when property type is residential or commercial , since open plots cannot have age
+    priceNegotiable: boolean;
+    maintainanceCost?: number;
+    securityCost?: number;
+    verificationStatus?: PropertyVerificationStatus;
+    likesCount?: number;
+    shareCount?: number;
+    reportCount?: number;
+    status: PropertyStatus;
+    sellType: PropertySellType;
+    managedBy: string; // id of user who have posted this property
+}
