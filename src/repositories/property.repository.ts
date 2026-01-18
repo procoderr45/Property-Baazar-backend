@@ -13,6 +13,12 @@ class PropertyRepository {
 
         return property;
     }
+
+    async getProperty(propertyId: string): Promise<PropertyType | null> {
+        const property = await PropertyModel.findById(propertyId).populate("postedBy", "_id name isEmailVerified followersCount followingCount photoUrl accountStatus")
+
+        return property;
+    }
 }
 
 export const propertyRepository = new PropertyRepository();

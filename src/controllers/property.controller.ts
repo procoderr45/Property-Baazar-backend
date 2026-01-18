@@ -26,6 +26,29 @@ const createProperty = catchAsync(async(req: Request, res: Response, next: NextF
     sendResponse(res, 201, apiResponse)
 })
 
+const getProperty = catchAsync(async(req: Request, res: Response, next: NextFunction) => {
+    const propertyId = req.params.id;
+
+    if(!propertyId) {
+        throw new AppError("Invalid property id", 400);
+    }
+
+    const property = await propertyService.getProperty(propertyId);
+    if(!property) {
+        throw new AppError("Property not found", 404);
+    }
+
+    const apiResponse: ApiResponseType<PropertyType> = {
+        status: "success",
+        data: property,
+        message: "Property found"
+    }
+
+    sendResponse(res, 200, apiResponse);
+
+})
+
 export default {
-    createProperty
+    createProperty,
+    getProperty
 }
