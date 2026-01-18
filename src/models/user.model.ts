@@ -48,6 +48,7 @@ const userSchema = new mongoose.Schema<DbUser>(
             maxLength: [50, "Name cannot exceed 50 characters"],
             trim: true,
         },
+        //TODO: create seperate schema for contact
         contact: {
             countryCode: {
                 type: String,
@@ -60,6 +61,7 @@ const userSchema = new mongoose.Schema<DbUser>(
                 required: [true, "Please provide your mobile number"],
                 unique: [true, "Mobile number already in use"],
                 maxLength: [MAX_NUMBER_LENGTH, `Mobile number should be ${MAX_NUMBER_LENGTH}`],
+                select: false
             },
             isMobileVerified: {
                 type: Boolean,
@@ -72,6 +74,7 @@ const userSchema = new mongoose.Schema<DbUser>(
             unique: [true, "Email already in use"],
             trim: true,
             match: [/^\S+@\S+\.\S+$/, "Please provide a valid email"],
+            select: false
         },
         followersCount: {
             type: Number,
@@ -88,6 +91,7 @@ const userSchema = new mongoose.Schema<DbUser>(
         password: {
             type: String,
             required: [true, "Please provide password"],
+            select: false
         },
         role: {
             type: String,
@@ -105,6 +109,7 @@ const userSchema = new mongoose.Schema<DbUser>(
         },
         age: {
             type: Number,
+            select: false
         },
         photoUrl: {
             //TODO: add regex for validation to check if it is url
@@ -114,7 +119,8 @@ const userSchema = new mongoose.Schema<DbUser>(
         },
         address: {
             type: addressSchema,
-            required: false
+            required: false,
+            select: false
         },
         accountStatus: {
             isVerified: {

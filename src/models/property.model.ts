@@ -15,6 +15,7 @@ const geoLocationSchema = new mongoose.Schema<PropertyGeoLocation>({
     _id: false
 })
 
+//TODO: add attachments field to show files uploaded for the property
 const propertySchema = new mongoose.Schema<PropertyType>({
     title: {
         type: String,
@@ -123,11 +124,11 @@ const propertySchema = new mongoose.Schema<PropertyType>({
     },
     managedBy: {
         type: [mongoose.Schema.Types.ObjectId],
-        ref: "user",
+        ref: "User",
     },
     postedBy: {
         type: mongoose.Schema.ObjectId,
-        ref: "user",
+        ref: "User",
         required: [true, "Posted by is invalid"]
     },
     reportCount: {
