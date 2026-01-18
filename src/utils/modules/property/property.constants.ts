@@ -1,7 +1,33 @@
+export const MAX_PROPERTY_TITLE_LENGTH = 75;
+export const MAX_PROPERTY_DESCRIPTION_LENGTH = 900;
+export const MAX_PROPERTY_LOCATION_LENGTH = 150;
+export const MAX_PROPERTY_SIZE_IN_SQ = 8;
+
+export const validPropertySellTypes = [
+    "sell",
+    "rent",
+    "contract"
+]
+
+export const validPropertyOwnerTypes = [
+    "freehold",
+    "leasehold",
+    "authorised_agent"
+] as const;
+
 export const validPropertyCategories = [
     "residential",
     "commercial",
     "plot",
+] as const;
+
+export const validPropertyStatus = [
+    "active",
+    "draft",
+    "inactive",
+    "sold",
+    "rented",
+    "expired"
 ] as const;
 
 export const validResidentialProperties = [

@@ -1,4 +1,5 @@
-import { validCommercialProperties, validPlotProperties, validPropertyCategories, validResidentialProperties } from "../utils/modules/property/property.constants.js";
+import { ObjectId } from "mongoose";
+import { validCommercialProperties, validPlotProperties, validPropertyCategories, validPropertyOwnerTypes, validPropertyStatus, validResidentialProperties } from "../utils/modules/property/property.constants.js";
 
 // Types for property type
 export type PropertyCategoryType = typeof validPropertyCategories[number];
@@ -13,9 +14,9 @@ export type PropertyFurnishingStatus = "fully_furnished" | "semi_furnished" | "u
 export type PropertyFacingDirection = "south" | "east" | "west" | "north";
 
 //Type for property ownership
-export type PropertyOwnershipType = "owned" | "leased" | "authorised_agent";
+export type PropertyOwnershipType = typeof validPropertyOwnerTypes[number];
 
-export type Amenity = {
+export type AmenityType = {
     title: string;
     iconUrl: string;
 }
@@ -44,7 +45,7 @@ export type PropertyNearByAttraction = {
 
 export type PropertyVerificationStatus = "pending" | "approved" | "rejected" | "paused"
 
-export type PropertyStatus = "active" | "draft" | "inactive" | "sold" | "rented" | "expired";
+export type PropertyStatus = typeof validPropertyStatus[number];
 
 export type PropertyGeoLocation = {
     latitude: number;
@@ -66,13 +67,15 @@ export type AddPropertyType = {
     areaInSquareMeter: number;
     facing?: PropertyFacingDirection;
     ownership: PropertyOwnershipType;
-    amenities: PropertyAmenity[];
+    amenities: ObjectId[];
     nearByAttractions?: PropertyNearByAttraction[];
     age?: number; // age of property which represents how old is property but only when property type is residential or commercial , since open plots cannot have age
-    priceNegotiable: boolean;
+    isPriceNegotiable: boolean;
     maintainanceCost?: number;
     securityCost?: number;
     sellType: PropertySellType;
+    managedBy: ObjectId[]; // id of users who have posted this property
+    
 }
 
 export type PropertyType = AddPropertyType & {
@@ -83,5 +86,7 @@ export type PropertyType = AddPropertyType & {
     shareCount?: number;
     reportCount?: number;
     status: PropertyStatus;
-    managedBy: string; // id of user who have posted this property
+    postedBy: ObjectId
 }
+
+export type PropertyDoc = PropertyType & Document;
