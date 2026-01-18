@@ -30,11 +30,11 @@ export function validateNewPropertyData(propertyData: AddPropertyType) {
     }
 
     if(!areaInSquareMeter || typeof areaInSquareMeter !== "number" || areaInSquareMeter <= 0) {
-        throw new AppError("Area in sq. meter is invalid", 400);
+        throw new AppError("Please provide valid area in sq. meter", 400);
     }
 
     if(!validPropertyCategories.includes(category)) {
-        throw new AppError("Category is invalid", 400);
+        throw new AppError("Please provide valid category", 400);
     }
 
     if(!ownership || (!validPropertyOwnerTypes.includes(ownership))) {
@@ -50,15 +50,15 @@ export function validateNewPropertyData(propertyData: AddPropertyType) {
     }
 
     if(!sellType || (sellType !== "contract" && sellType !== "rent" && sellType !== "sell")) {
-        throw new AppError("Sell type is invalid", 400)
+        throw new AppError("Please provide valid property sell type", 400)
     }
 
     if(type !== "Open plot" && type !== "Agricultural Plot" && type !== "Mixed-use Plot" && (!age || !facing)) {
-        throw new AppError("Age or facing direction of property is invalid", 400);
+        throw new AppError("Please provide valid property facing direction and age (in years).", 400);
     }
     
     if(facing && (facing !== "south" && facing !== "east" && facing !== "north" && facing !== "west")) {
-        throw new AppError("Facing direction of property is invalid", 400);
+        throw new AppError("Please provide valid property facing direction", 400);
     }
 
     return propertyData;

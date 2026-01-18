@@ -11,6 +11,12 @@ class PropertyService {
         
         return newProperty;
     }
+
+    async getProperty(propertyId: string): Promise<PropertyType | null> {
+        const property = await propertyRepository.getProperty(propertyId);
+
+        return property;
+    }
 }
 
 export const propertyService = new PropertyService();
