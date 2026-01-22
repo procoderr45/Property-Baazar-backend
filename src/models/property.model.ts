@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { MAX_PROPERTY_DESCRIPTION_LENGTH, MAX_PROPERTY_LOCATION_LENGTH, MAX_PROPERTY_SIZE_IN_SQ, MAX_PROPERTY_TITLE_LENGTH, validPropertyCategories, validPropertyOwnerTypes, validPropertySellTypes, validPropertyStatus } from "../utils/modules/property/property.constants.js";
-import { AddPropertyType, PropertyGeoLocation, PropertyType } from "../types/property.type.js";
+import { PropertyGeoLocation, PropertyType } from "../types/property/property.type.js";
 
 const geoLocationSchema = new mongoose.Schema<PropertyGeoLocation>({
     latitude: {
@@ -99,8 +99,8 @@ const propertySchema = new mongoose.Schema<PropertyType>({
         type: Number,
     },
     amenities: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: "amenity"
+        type: [String],
+        ref: "Amenity"
     },
     nearByAttractions: {
         type: [mongoose.Schema.Types.ObjectId],

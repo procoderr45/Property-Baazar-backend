@@ -3,6 +3,14 @@ export const MAX_PROPERTY_DESCRIPTION_LENGTH = 900;
 export const MAX_PROPERTY_LOCATION_LENGTH = 150;
 export const MAX_PROPERTY_SIZE_IN_SQ = 8;
 
+export const validAttachmentTypes = [
+    "video",
+    "image",
+    "pdf",
+    "audio",
+    "txt"
+]
+
 export const validPropertySellTypes = [
     "sell",
     "rent",

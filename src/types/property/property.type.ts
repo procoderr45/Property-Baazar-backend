@@ -1,5 +1,5 @@
 import { ObjectId } from "mongoose";
-import { validCommercialProperties, validPlotProperties, validPropertyCategories, validPropertyOwnerTypes, validPropertyStatus, validResidentialProperties } from "../utils/modules/property/property.constants.js";
+import { validCommercialProperties, validPlotProperties, validPropertyCategories, validPropertyOwnerTypes, validPropertyStatus, validResidentialProperties } from "../../utils/modules/property/property.constants.js";
 
 // Types for property type
 export type PropertyCategoryType = typeof validPropertyCategories[number];
@@ -18,7 +18,7 @@ export type PropertyOwnershipType = typeof validPropertyOwnerTypes[number];
 
 export type AmenityType = {
     title: string;
-    iconUrl: string;
+    iconUrl?: string;
 }
 
 export type PropertyAmenity = {
@@ -54,6 +54,7 @@ export type PropertyGeoLocation = {
 
 export type PropertySellType = "sell" | "rent" | "contract";
 
+//TODO: add attachments field that stores the s3 keys for files uploaded for the property
 export type AddPropertyType = {
     title: string;
     description: string;
@@ -67,7 +68,7 @@ export type AddPropertyType = {
     areaInSquareMeter: number;
     facing?: PropertyFacingDirection;
     ownership: PropertyOwnershipType;
-    amenities: ObjectId[];
+    amenities: string[] | AmenityType[];
     nearByAttractions?: PropertyNearByAttraction[];
     age?: number; // age of property which represents how old is property but only when property type is residential or commercial , since open plots cannot have age
     isPriceNegotiable: boolean;
@@ -79,7 +80,6 @@ export type AddPropertyType = {
 }
 
 export type PropertyType = AddPropertyType & {
-    
     verificationStatus?: PropertyVerificationStatus;
     isDeleted?: boolean;
     likesCount?: number;

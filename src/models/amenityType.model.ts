@@ -1,12 +1,12 @@
 import mongoose, { Document } from "mongoose";
-import { AmenityType } from "../types/property.type.js";
+import { AmenityType } from "../types/property/property.type.js";
 
-const amenitySchema = new mongoose.Schema<AmenityType>({
+const amenityTypeSchema = new mongoose.Schema<AmenityType>({
     title: {
         type: String,
         trim: true,
         lowercase: true,
-        unique: [true, `{VALUE} amenity already exists. Please select {VALUE}`]
+        unique: [true, "Amenity already exists. Select existing amenity"]
     },
     iconUrl: {
         type: String,
@@ -16,6 +16,6 @@ const amenitySchema = new mongoose.Schema<AmenityType>({
     timestamps: true,
 })
 
-const AmenityModel = mongoose.model<AmenityType>("Amenity", amenitySchema);
+const AmenityModel = mongoose.model<AmenityType>("AmenityType", amenityTypeSchema);
 
 export default AmenityModel;

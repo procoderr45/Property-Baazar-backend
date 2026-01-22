@@ -1,4 +1,4 @@
-import { AddPropertyType } from "../../../types/property.type.js";
+import { AddPropertyType } from "../../../types/property/property.type.js";
 import { AppError } from "../../error/AppError.js";
 import { validPropertyCategories, validPropertyOwnerTypes } from "./property.constants.js";
 

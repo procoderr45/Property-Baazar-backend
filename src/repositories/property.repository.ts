@@ -1,6 +1,5 @@
 import PropertyModel from "../models/property.model.js";
-import { AddPropertyType, PropertyDoc, PropertyType } from "../types/property.type.js";
-import { AppError } from "../utils/error/AppError.js";
+import { AddPropertyType, PropertyDoc, PropertyType } from "../types/property/property.type.js";
 
 class PropertyRepository {
     async createProperty(postedBy: string, propertyData: AddPropertyType): Promise<PropertyType> {
