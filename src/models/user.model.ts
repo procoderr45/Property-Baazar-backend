@@ -173,11 +173,14 @@ const userSchema = new mongoose.Schema<DbUser>(
     { timestamps: true, strict: "throw" }
 );
 
+//indexing on address schema
+addressSchema.index({ city: 1 });
+addressSchema.index({ state: 1});
+addressSchema.index({ country: 1});
+
+//indexing on user schema
 userSchema.index({ role: 1 });
-
 userSchema.index({ name: "text" });
-
-userSchema.index({ "address.pincode": 1 })
 
 const UserModel = mongoose.model<DbUser>("User", userSchema);
 

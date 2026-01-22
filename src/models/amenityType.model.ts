@@ -16,6 +16,8 @@ const amenityTypeSchema = new mongoose.Schema<AmenityType>({
     timestamps: true,
 })
 
+amenityTypeSchema.index({ title: -1 })
+
 const AmenityModel = mongoose.model<AmenityType>("AmenityType", amenityTypeSchema);
 
 export default AmenityModel;
