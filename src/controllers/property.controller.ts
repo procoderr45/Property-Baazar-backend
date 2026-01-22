@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../utils/error/catchAsync.js";
 import { propertyService } from "../services/property.service.js";
 import { ApiResponseType } from "../types/response.type.js";
-import { PropertyDoc, PropertyType } from "../types/property.type.js";
+import { PropertyType } from "../types/property/property.type.js";
 import sendResponse from "../utils/apiResponse.js";
 import { AppError } from "../utils/error/AppError.js";
 
