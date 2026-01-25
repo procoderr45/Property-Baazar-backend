@@ -100,7 +100,7 @@ const propertySchema = new mongoose.Schema<PropertyType>({
     },
     amenities: {
         type: [String],
-        ref: "Amenity"
+        ref: "AmenityType"
     },
     nearByAttractions: {
         type: [mongoose.Schema.Types.ObjectId],

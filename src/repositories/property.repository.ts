@@ -14,7 +14,14 @@ class PropertyRepository {
     }
 
     async getProperty(propertyId: string): Promise<PropertyType | null> {
-        const property = await PropertyModel.findById(propertyId).populate("postedBy", "_id name isEmailVerified followersCount followingCount photoUrl accountStatus")
+        const property = await PropertyModel.findById(propertyId)
+                .populate({
+                    path: "postedBy",
+                    select: "_id name isEmailVerified followersCount followingCount photoUrl accountStatus"
+                })
+                .populate({
+                    path: "amenities",
+                })
 
         return property;
     }
