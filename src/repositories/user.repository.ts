@@ -36,10 +36,7 @@ class UserRepository {
     }
 
     async searchProfiles(profileFilters: any): Promise<DbUser[] | null> {
-        console.log("Profile ", profileFilters);
-        
-        const searchResult = await UserModel.find(profileFilters, "-email -password -updatedAt -contact -age")
-        console.log(searchResult);
+        const searchResult = await UserModel.find(profileFilters, "-email -password -updatedAt -age")
 
         return searchResult;
     }

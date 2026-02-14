@@ -1,16 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../utils/error/catchAsync.js";
 import sendResponse from "../utils/apiResponse.js";
-import { DbUser, PublicProfileDataType, SearchProfileFilters } from "../types/user.type.js";
+import { PublicProfileDataType, SearchProfileFilters } from "../types/user.type.js";
 import { ApiResponseType } from "../types/response.type.js";
 import { AppError } from "../utils/error/AppError.js";
-import { userRepository } from "../repositories/user.repository.js";
 import { userService } from "../services/user.service.js";
-import getPublicProfileData from "../utils/modules/user/getPublicProfileData.js";
-import UserModel from "../models/user.model.js";
 
 const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-
     const userData = req.user;
 
     if (!userData) {

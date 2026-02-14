@@ -11,14 +11,9 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser())
 
-app.use("/user", userRouter)
+app.use("/auth", authRouter);
+app.use("/user", userRouter);
 app.use("/upload", uploadRouter);
-
-app.post("/health", (req, res) => {
-    res.send("Backend is alive");
-});
-
-
 app.use("/property", propertyRouter);
 
 app.use(handleError)
