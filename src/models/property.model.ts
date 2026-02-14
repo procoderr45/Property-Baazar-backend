@@ -1,19 +1,7 @@
 import mongoose from "mongoose";
 import { MAX_PROPERTY_DESCRIPTION_LENGTH, MAX_PROPERTY_LOCATION_LENGTH, MAX_PROPERTY_SIZE_IN_SQ, MAX_PROPERTY_TITLE_LENGTH, validPropertyCategories, validPropertyOwnerTypes, validPropertySellTypes, validPropertyStatus } from "../utils/modules/property/property.constants.js";
 import { PropertyGeoLocation, PropertyType } from "../types/property/property.type.js";
-
-const geoLocationSchema = new mongoose.Schema<PropertyGeoLocation>({
-    latitude: {
-        type: Number,
-        required: [true, "Property location invalid"]
-    },
-    longitude: {
-        type: Number,
-        required: [true, "Property location invalid"]
-    }
-}, {
-    _id: false
-})
+import { addressSchema } from "./schema/address.model.js";
 
 //TODO: add attachments field to show files uploaded for the property
 const propertySchema = new mongoose.Schema<PropertyType>({
@@ -28,15 +16,9 @@ const propertySchema = new mongoose.Schema<PropertyType>({
         trim: true,
         maxLength: [MAX_PROPERTY_DESCRIPTION_LENGTH, `Description should not exceed ${MAX_PROPERTY_DESCRIPTION_LENGTH} characters`]
     },
-    location: {
-        type: String,
-        trim: true,
-        required: [true, "Location of property is required"],
-        maxLength: [MAX_PROPERTY_LOCATION_LENGTH, `Location should not exceed ${MAX_PROPERTY_LOCATION_LENGTH} characters`] 
-    },
-    geoLocation: {
-        type: geoLocationSchema,
-        required: [true, "Invalid property location."]
+    address: {
+        type: addressSchema,
+        required: [true, "Property address is required"],
     },
     googleMapLink: {
         type: String,
@@ -147,6 +129,10 @@ const propertySchema = new mongoose.Schema<PropertyType>({
             message: "{VALUE} is invalid property status"
         },
         default: "active"
+    },
+    parkingAvailable: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

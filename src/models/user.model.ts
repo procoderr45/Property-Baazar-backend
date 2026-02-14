@@ -6,59 +6,7 @@ import {
     MAX_PIN_CODE_VALUE,
 } from "../utils/constants.js";
 
-import { Address, LocationCoordinate } from "../types/address.type.js";
-
-const locationCoordinateSchema = new mongoose.Schema<LocationCoordinate>({
-    type: {
-        type: String,
-        enum: {
-            values: ["Point"],
-            message: "Invalid location type"
-        },
-        required: [true, "Location type is required"]
-    },
-    coordinates: {
-        type: [Number],
-        required: [true, "Location coordinates are required"]
-    }
-}, {
-    _id: false,
-    strict: "throw"
-})
-
-const addressSchema = new mongoose.Schema<Address>({
-    location: {
-        type: locationCoordinateSchema
-    },
-    street: {
-        type: String,
-        trim: true,
-        default: "",
-        maxLength: [200, "Street length should not exceed 200 characters"]
-    },
-    city: {
-        type: String,
-        trim: true,
-        maxLength: [100, "City length should not exceed 100 characters"],
-        minLength: [3, "City should be atleast 3 characters long"]
-    },
-    pincode: {
-        type: Number,
-        max: [MAX_PIN_CODE_VALUE, `Pincode must be greater than ${MAX_PIN_CODE_VALUE}`]
-    },
-    state: {
-        type: String,
-        trim: true,
-        maxLength: [130, "State length should not exceed 130 characters"],
-        minLength: [3, "State should be atleast 3 charactes long"]
-    },
-    country: {
-        type: String,
-        trim: true,
-        maxLength: [130, "Country name should not exceed more than 120 characters"],
-        minLength: [3, "Country name must be atleast 3 characters long"]
-    }
-}, { _id: false, strict: "throw" })
+import { addressSchema } from "./schema/address.model.js";
 
 const userSchema = new mongoose.Schema<DbUser>(
     {
@@ -193,14 +141,6 @@ const userSchema = new mongoose.Schema<DbUser>(
     },
     { timestamps: true, strict: "throw" }
 );
-
-//indexing on address schema
-addressSchema.index({ city: 1 });
-addressSchema.index({ state: 1});
-addressSchema.index({ country: 1});
-
-//create 2dsphere index on address.location for findig near by users, agents, properties and etc
-addressSchema.index({ "location": "2dsphere" });
 
 //indexing on user schema
 userSchema.index({ role: 1 });

@@ -35,9 +35,12 @@ class UserRepository {
         return updatedUserProfile;
     }
 
-    async searchProfiles(profileFilters: any) {
-        const searchResult = await UserModel.find(profileFilters, "-email -password -updatedAt -contact -age")
+    async searchProfiles(profileFilters: any): Promise<DbUser[] | null> {
+        console.log("Profile ", profileFilters);
         
+        const searchResult = await UserModel.find(profileFilters, "-email -password -updatedAt -contact -age")
+        console.log(searchResult);
+
         return searchResult;
     }
 }

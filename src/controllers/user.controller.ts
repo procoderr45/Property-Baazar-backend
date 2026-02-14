@@ -31,7 +31,11 @@ const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFu
 const getUserProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.params;
 
-    const userProfile = await userService.getUserById(userId);
+    if(!userId) {
+        throw new AppError("Profile not found", 404);
+    }
+
+    const userProfile = await userService.getUserById(userId as string);
 
     const userProfileApiResponse: ApiResponseType<PublicProfileDataType> = {
         message: "User profile found",

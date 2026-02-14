@@ -4,7 +4,7 @@ export interface Address {
     pincode?: number;
     state: string;
     country: string;
-    location?: Location;
+    location?: LocationCoordinate;
 }
 
 //for mongodb 2dsphere index

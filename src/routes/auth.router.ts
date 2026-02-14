@@ -1,5 +1,7 @@
 import express from "express";
 import authController from "../controllers/auth.controller.js";
+console.log("Auth router loaded");
+
 
 const router = express.Router();
 

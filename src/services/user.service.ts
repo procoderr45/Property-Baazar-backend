@@ -67,6 +67,8 @@ class UserService {
             }
         });
 
+        console.log("Query", query);
+
         const searchResult = await userRepository.searchProfiles(query)
 
         return searchResult;
