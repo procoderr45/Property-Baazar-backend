@@ -10,7 +10,7 @@ export const validKycStatusTypes = ["pending", "approved", "rejected", "on_hold"
 export const publicProfileFields = [
     "name",
     "_id",
-    "contact.isMobileVerified",
+    "isMobileVerified",
     "isEmailVerified",
     "role",
     "bio",
