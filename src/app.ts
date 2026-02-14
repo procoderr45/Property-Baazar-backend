@@ -1,4 +1,4 @@
-import express, { urlencoded } from "express";
+import express from "express";
 import authRouter from "./routes/auth.router.js";
 import handleError from "./utils/error/errorHandler.js";
 import userRouter from "./routes/user.route.js"

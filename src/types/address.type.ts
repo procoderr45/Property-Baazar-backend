@@ -4,11 +4,11 @@ export interface Address {
     pincode?: number;
     state: string;
     country: string;
-    location?: LocationCoordinate;
+    location?: LocationCoordinateType;
 }
 
 //for mongodb 2dsphere index
-export interface LocationCoordinate {
+export type LocationCoordinateType = {
     type: "Point",
     coordinates: [number, number]
 }

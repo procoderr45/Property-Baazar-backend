@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { LocationCoordinate } from "../../types/address.type.js";
+import { LocationCoordinateType } from "../../types/address.type.js";
 
-export const locationCoordinateSchema = new mongoose.Schema<LocationCoordinate>({
+export const LocationCoordinateSchema = new mongoose.Schema<LocationCoordinateType>({
     type: {
         type: String,
         enum: {

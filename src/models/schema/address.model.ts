@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 import { Address } from "../../types/address.type.js";
 import { MAX_PIN_CODE_VALUE } from "../../utils/constants.js";
-import { locationCoordinateSchema } from "./locationCoordinate.model.js";
+import { LocationCoordinateSchema } from "./locationCoordinate.model.js";
 
 export const addressSchema = new mongoose.Schema<Address>({
     location: {
-        type: locationCoordinateSchema,
+        type: LocationCoordinateSchema,
     },
     street: {
         type: String,
