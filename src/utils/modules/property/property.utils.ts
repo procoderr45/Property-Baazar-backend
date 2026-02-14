@@ -20,6 +20,10 @@ export function validateNewPropertyData(propertyData: AddPropertyType) {
         throw new AppError("Price must be valid number and greator than 0", 400)
     }
 
+    if(!address || typeof address !== "object" || !address.city || !address.pincode || !address.state || !address.country) {
+        throw new AppError("Property address must be valid", 400)
+    }
+
     //TODO: add addresss validation later
     if(!geoLocation || !geoLocation.latitude || typeof geoLocation.latitude !== "number" || !geoLocation.longitude || typeof geoLocation.longitude !== "number") {
         throw new AppError("Geolocation is invalid", 400);
