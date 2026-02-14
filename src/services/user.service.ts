@@ -52,18 +52,14 @@ class UserService {
         Object.entries(searchFilters).forEach(([key, value]) => {
             if (!value) return;
 
-            if (key.startsWith("address.")) {
-                if (key === "address.pincode") {
-                    query[key] = Number(value);
-                } else {
-                    query[key] = {
-                        $regex: value as string,
-                        $options: "i",
-                    };
-                }
+            if (key.startsWith("address.") && key === "address.pincode") {
+                query[key] = Number(value);
             }
             else {
-                query[key] = value;
+                query[key] = {
+                    $regex: value as string,
+                    $options: "i",
+                };
             }
         });
 

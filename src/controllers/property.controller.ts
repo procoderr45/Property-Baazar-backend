@@ -27,7 +27,7 @@ const createProperty = catchAsync(async(req: Request, res: Response, next: NextF
 })
 
 const getProperty = catchAsync(async(req: Request, res: Response, next: NextFunction) => {
-    const propertyId = req.params.id;
+    const propertyId = req.params.id as string;
 
     if(!propertyId) {
         throw new AppError("Invalid property id", 400);

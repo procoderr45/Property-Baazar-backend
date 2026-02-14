@@ -3,7 +3,6 @@ import { AppError } from "../utils/error/AppError.js";
 
 import { verifyJwtToken } from "../utils/auth/jwtToken.js";
 import { userRepository } from "../repositories/user.repository.js";
-import getPublicProfileData from "../utils/modules/user/getPublicProfileData.js";
 
 export default async function isLoggedIn(req: Request, res: Response, next: NextFunction) {
     const { token } = req.cookies;

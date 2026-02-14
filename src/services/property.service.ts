@@ -9,7 +9,7 @@ class PropertyService {
         const validPropertyData = validateNewPropertyData(propertyData);
         let propertyAmenityIds: string[] = [];
 
-        for (let curAmenity of validPropertyData.amenities) {
+        for (let curAmenity of (validPropertyData.amenities || [])) {
             if (propertyData.amenities.length > 0 && typeof propertyData.amenities[0] === "object") {
                 const amenity = new AmenityModel(curAmenity);
                 const amenityDoc = await amenity.save();

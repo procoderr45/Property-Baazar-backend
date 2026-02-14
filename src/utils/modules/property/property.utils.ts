@@ -5,12 +5,11 @@ import { validPropertyCategories, validPropertyOwnerTypes } from "./property.con
 export function validateNewPropertyData(propertyData: AddPropertyType) {
 
     //TODO: install zod and apply zop validations
-    let { title, description, price, location, category, type, googleMapLink, geoLocation, furnishingStatus, areaInSquareMeter, facing } = propertyData;
+    let { title, description, price, address, category, type, googleMapLink, geoLocation, furnishingStatus, areaInSquareMeter, facing } = propertyData;
     const { ownership, amenities, nearByAttractions, age, isPriceNegotiable, maintainanceCost, securityCost, sellType } = propertyData;
     
     title = title.trim();
     description = description.trim();
-    location = location.trim();
     googleMapLink = googleMapLink.trim();
 
     if(!title || title.length < 3) {
@@ -21,10 +20,11 @@ export function validateNewPropertyData(propertyData: AddPropertyType) {
         throw new AppError("Price must be valid number and greator than 0", 400)
     }
 
-    if(!location || location.length < 3) {
-        throw new AppError("Location must be at least 3 characters long", 404)
+    if(!address || typeof address !== "object" || !address.city || !address.pincode || !address.state || !address.country) {
+        throw new AppError("Property address must be valid", 400)
     }
 
+    //TODO: add addresss validation later
     if(!geoLocation || !geoLocation.latitude || typeof geoLocation.latitude !== "number" || !geoLocation.longitude || typeof geoLocation.longitude !== "number") {
         throw new AppError("Geolocation is invalid", 400);
     }

@@ -12,9 +12,8 @@ app.use(express.json());
 app.use(cookieParser())
 
 app.use("/auth", authRouter);
-app.use("/user", userRouter)
+app.use("/user", userRouter);
 app.use("/upload", uploadRouter);
-
 app.use("/property", propertyRouter);
 
 app.use(handleError)

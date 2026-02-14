@@ -1,5 +1,6 @@
 import { ObjectId } from "mongoose";
 import { validCommercialProperties, validPlotProperties, validPropertyCategories, validPropertyOwnerTypes, validPropertyStatus, validResidentialProperties } from "../../utils/modules/property/property.constants.js";
+import { Address } from "../address.type.js";
 
 // Types for property type
 export type PropertyCategoryType = typeof validPropertyCategories[number];
@@ -59,7 +60,7 @@ export type AddPropertyType = {
     title: string;
     description: string;
     price: number;
-    location: string;
+    address: Address;
     category: PropertyCategoryType;
     type: ResidentialPropertyType | CommercialPropertyType | PlotPropertyType,
     googleMapLink: string;
@@ -76,6 +77,7 @@ export type AddPropertyType = {
     securityCost?: number;
     sellType: PropertySellType;
     managedBy: ObjectId[]; // id of users who have posted this property
+    parkingAvailable: boolean;
     
 }
 
