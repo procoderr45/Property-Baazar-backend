@@ -1,23 +1,24 @@
 import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../utils/error/catchAsync.js";
 import sendResponse from "../utils/apiResponse.js";
-import { PublicProfileDataType, SearchProfileFilters } from "../types/user.type.js";
+import { DbUser, PublicProfileDataType, SearchProfileFilters } from "../types/user.type.js";
 import { ApiResponseType } from "../types/response.type.js";
 import { AppError } from "../utils/error/AppError.js";
 import { userService } from "../services/user.service.js";
+import getPublicProfileData from "../utils/modules/user/getPublicProfileData.js";
 
 const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const userData = req.user;
+    const userData = req.user as DbUser;
 
     if (!userData) {
         throw new AppError("Please login first", 403);
     }
 
-    const responseData: ApiResponseType<{user: PublicProfileDataType}> = {
+    const myPublicProfile = getPublicProfileData(userData);
+
+    const responseData: ApiResponseType<PublicProfileDataType> = {
         status: "success",
-        data: {
-            user:userData
-        },
+        data: myPublicProfile,
         message: "User profile found"
     }
 
