@@ -1,7 +1,7 @@
 import AmenityModel from "../models/amenityType.model.js";
 import { propertyRepository } from "../repositories/property.repository.js";
-import { AddPropertyType, PropertyDoc, PropertyType } from "../types/property/property.type.js";
-import { validateNewPropertyData } from "../utils/modules/property/property.utils.js";
+import { AddPropertyType, EditPropertyType, PropertyDoc, PropertyType } from "../types/property/property.type.js";
+import { validateEditPropertyData, validateNewPropertyData } from "../utils/modules/property/property.utils.js";
 
 class PropertyService {
     async createProperty(postedBy: string, propertyData: AddPropertyType): Promise<PropertyType> {
@@ -33,6 +33,15 @@ class PropertyService {
         const property = await propertyRepository.getProperty(propertyId);
 
         return property;
+    }
+
+    //TODO: pass only field of property that we want to change
+    async editProperty(propertyId: string, newPropertyData: AddPropertyType): Promise<PropertyDoc | null> {
+        const validPropertyData = validateEditPropertyData(newPropertyData)
+
+        const updatedProperty = await propertyRepository.editProperty(propertyId, validPropertyData);
+
+        return updatedProperty;
     }
 }
 
