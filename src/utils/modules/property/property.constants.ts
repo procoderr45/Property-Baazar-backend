@@ -30,12 +30,12 @@ export const validPropertyCategories = [
 ] as const;
 
 export const validPropertyStatus = [
-    "active",
-    "draft",
-    "inactive",
+    "sale",
     "sold",
     "rented",
-    "expired"
+    "cancelled",
+    "under_maintainance",
+    "reserved"
 ] as const;
 
 export const validResidentialProperties = [
