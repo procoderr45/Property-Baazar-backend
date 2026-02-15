@@ -91,4 +91,6 @@ export type PropertyType = AddPropertyType & {
     postedBy: ObjectId
 }
 
+export type EditPropertyType = Partial<AddPropertyType>
+
 export type PropertyDoc = PropertyType & Document;

@@ -1,5 +1,5 @@
 import PropertyModel from "../models/property.model.js";
-import { AddPropertyType, PropertyDoc, PropertyType } from "../types/property/property.type.js";
+import { AddPropertyType, EditPropertyType, PropertyDoc, PropertyType } from "../types/property/property.type.js";
 
 class PropertyRepository {
     async createProperty(postedBy: string, propertyData: AddPropertyType): Promise<PropertyType> {
@@ -26,6 +26,17 @@ class PropertyRepository {
                 })
 
         return property;
+    }
+
+    async editProperty(propertyId: string, newPropertyData: EditPropertyType): Promise<PropertyDoc | null> {
+        const updatedProperty = await PropertyModel.findByIdAndUpdate<PropertyDoc>(propertyId, {
+            ...newPropertyData
+        }, {
+            runValidators: true,
+            returnDocument: "after"
+        });
+
+        return updatedProperty;
     }
 }
 
