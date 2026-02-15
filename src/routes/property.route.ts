@@ -10,4 +10,7 @@ router.get("/:id", propertyController.getProperty);
 
 router.patch("/edit/:propertyId", isLoggedIn, isPropertyAuthorized, propertyController.editProperty);
 
+router.post("/save/:propertyId", isLoggedIn, propertyController.saveProperty);
+router.post("/unsave/:propertyId", isLoggedIn, propertyController.unSaveProperty);
+
 export default router;

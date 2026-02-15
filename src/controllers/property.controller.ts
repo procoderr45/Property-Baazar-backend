@@ -76,8 +76,55 @@ const editProperty = catchAsync(async (req: Request, res: Response, next: NextFu
 
 })
 
+const saveProperty = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const propertyId = req.params.propertyId as string;
+    const user = req.user;
+
+    if (!propertyId) {
+        throw new AppError("Invalid property id", 400);
+    }
+
+    if (!user) {
+        throw new AppError("Please login", 403);
+    }
+
+    const savedProperty = await propertyService.saveProperty(propertyId, user._id.toString());
+    const apiResponse: ApiResponseType<null> = {
+        message: "Property saved successfully",
+        status: "success"
+    }
+
+    return sendResponse(res, 201, apiResponse);
+
+})
+
+const unSaveProperty = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const propertyId = req.params.propertyId as string;
+    const user = req.user;
+
+    if (!propertyId) {
+        throw new AppError("Invalid property id", 400);
+    }
+
+    if (!user) {
+        throw new AppError("Please login", 403);
+    }
+
+    const unSavedProperty = await propertyService.unSaveProperty(propertyId, user._id.toString());
+
+    const apiResponse: ApiResponseType<null> = {
+        message: "Property unsaved successfully",
+        status: "success"
+    }
+
+    return sendResponse(res, 200, apiResponse);
+
+})
+
 export default {
     createProperty,
     getProperty,
-    editProperty
+    editProperty,
+    saveProperty,
+    unSaveProperty
 }
