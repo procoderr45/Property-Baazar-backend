@@ -1,6 +1,7 @@
 import AmenityModel from "../models/amenityType.model.js";
 import { propertyRepository } from "../repositories/property.repository.js";
 import { AddPropertyType, EditPropertyType, PropertyDoc, PropertyType } from "../types/property/property.type.js";
+import { AppError } from "../utils/error/AppError.js";
 import { validateEditPropertyData, validateNewPropertyData } from "../utils/modules/property/property.utils.js";
 
 class PropertyService {
@@ -16,7 +17,7 @@ class PropertyService {
 
                 propertyAmenityIds.push(amenityDoc._id.toString());
             }
-            else if(typeof curAmenity === "string") {
+            else if (typeof curAmenity === "string") {
                 propertyAmenityIds.push(curAmenity);
             }
         }
@@ -42,6 +43,27 @@ class PropertyService {
         const updatedProperty = await propertyRepository.editProperty(propertyId, validPropertyData);
 
         return updatedProperty;
+    }
+
+    async saveProperty(propertyId: string, userId: string) {
+        const property = await propertyService.getProperty(propertyId);
+        if (!property || property.isDeleted) {
+            throw new AppError("Property not found, unable to save.", 404);
+        }
+
+        const savedProperty = await propertyRepository.saveProperty(propertyId, userId);
+
+        return savedProperty;
+    }
+
+    async unSaveProperty(propertyId: string, userId: string) {
+        const unSavedProperty = await propertyRepository.unSaveProperty(propertyId, userId);
+
+        if(!unSavedProperty) {
+            throw new AppError("Property is not saved.", 404);
+        }
+
+        return unSavedProperty;
     }
 }
 
