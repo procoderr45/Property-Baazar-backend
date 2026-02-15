@@ -128,7 +128,7 @@ const propertySchema = new mongoose.Schema<PropertyType>({
             values: validPropertyStatus,
             message: "{VALUE} is invalid property status"
         },
-        default: "active"
+        default: "sale"
     },
     parkingAvailable: {
         type: Boolean,
