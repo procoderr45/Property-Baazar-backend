@@ -3,6 +3,7 @@ import PropertyModel from "../models/property.model.js";
 import SavePropertyModel from "../models/propertySavemodel.js";
 import { AddPropertyType, EditPropertyType, PropertyDoc, PropertyType } from "../types/property/property.type.js";
 import { PropertySaveType } from "../types/save.type.js";
+import { propertyPostedByUserData } from "../utils/modules/property/property.utils.js";
 
 class PropertyRepository {
     async createProperty(postedBy: string, propertyData: AddPropertyType): Promise<PropertyType> {
@@ -60,6 +61,26 @@ class PropertyRepository {
         })
 
         return unSaved;
+
+    }
+
+    async getMySavedProperties(userId: string, skip: number, limit: number): Promise<PropertySaveType[]> {
+        const savedProperties = await SavePropertyModel
+            .find({ user: new mongoose.Types.ObjectId(userId) })
+            .skip(skip)
+            .limit(limit)
+            .populate({
+                path: "property",
+                select: "-amenities -description -nearByAttractions -managedBy -isPriceNegotiable -ownership -facing -furnishingStatus -type -category -parkingAvailable -__v -age -address.street -updatedAt -shareCount -reportCount",
+                populate: {
+                    path: "postedBy",
+                    select: "name _id role isEmailVerified photoUrl accountStatus "
+                }
+            })
+            .select("-user -updatedAt -__v")
+            .lean();
+
+        return savedProperties;
 
     }
 }

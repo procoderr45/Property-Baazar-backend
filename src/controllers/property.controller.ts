@@ -5,6 +5,7 @@ import { ApiResponseType } from "../types/response.type.js";
 import { PropertyDoc, PropertyType } from "../types/property/property.type.js";
 import sendResponse from "../utils/apiResponse.js";
 import { AppError } from "../utils/error/AppError.js";
+import { PropertySaveType } from "../types/save.type.js";
 
 const createProperty = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
@@ -121,10 +122,33 @@ const unSaveProperty = catchAsync(async (req: Request, res: Response, next: Next
 
 })
 
+const getMySavedProperties = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user;
+    const page = (req.query.page as string) || "1";
+    const limit = 10;
+    const skip = (parseInt(page) - 1) * limit;
+
+    if (!user) {
+        throw new AppError("Please login", 403);
+    }
+
+    const savedProperties = await propertyService.getMySavedProperties(user._id.toString(), skip, limit);
+
+    const apiResponse: ApiResponseType<PropertySaveType[]> = {
+        message: "Ok",
+        status: "success",
+        data: savedProperties
+    }
+
+    return sendResponse(res, 200, apiResponse);
+
+})
+
 export default {
     createProperty,
     getProperty,
     editProperty,
     saveProperty,
-    unSaveProperty
+    unSaveProperty,
+    getMySavedProperties
 }

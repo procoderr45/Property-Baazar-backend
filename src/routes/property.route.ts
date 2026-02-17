@@ -12,5 +12,6 @@ router.patch("/edit/:propertyId", isLoggedIn, isPropertyAuthorized, propertyCont
 
 router.post("/save/:propertyId", isLoggedIn, propertyController.saveProperty);
 router.post("/unsave/:propertyId", isLoggedIn, propertyController.unSaveProperty);
+router.get("/saved/my", isLoggedIn, propertyController.getMySavedProperties);
 
 export default router;
