@@ -65,6 +65,12 @@ class PropertyService {
 
         return unSavedProperty;
     }
+
+    async getMySavedProperties(userId: string, skip = 0, limit = 10) {
+        const saved = await propertyRepository.getMySavedProperties(userId, skip, limit);
+
+        return saved;
+    }
 }
 
 export const propertyService = new PropertyService();

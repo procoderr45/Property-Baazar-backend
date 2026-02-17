@@ -120,3 +120,5 @@ export function validateEditPropertyData(propertyData: EditPropertyType) {
 
     return propertyData;
 }
+
+export const propertyPostedByUserData = "name _id isEmailVerified role photoUrl accountStatus contact.countryCode contact.isMobileVerified"
