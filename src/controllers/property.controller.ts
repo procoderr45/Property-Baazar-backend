@@ -144,11 +144,31 @@ const getMySavedProperties = catchAsync(async (req: Request, res: Response, next
 
 })
 
+const getPropertiesNearMe = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const { latitude, longitude } = req.body;
+
+    if (typeof latitude !== "number" || typeof longitude !== "number") {
+        throw new AppError("Invalid latitude or longitude", 400)
+    }
+
+    const properties = await propertyService.getPropertiesNearMe(latitude, longitude);
+
+    const apiResponse: ApiResponseType<PropertyType[]> = {
+        message: "",
+        status: "success",
+        data: properties
+    }
+
+    return sendResponse(res, 200, apiResponse);
+
+})
+
 export default {
     createProperty,
     getProperty,
     editProperty,
     saveProperty,
     unSaveProperty,
-    getMySavedProperties
+    getMySavedProperties,
+    getPropertiesNearMe
 }
