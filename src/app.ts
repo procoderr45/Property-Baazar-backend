@@ -5,6 +5,7 @@ import userRouter from "./routes/user.route.js"
 import cookieParser from "cookie-parser"
 import uploadRouter from "./routes/upload.route.js"
 import propertyRouter from "./routes/property.route.js"
+import propertyLike from "./routes/propertyLike.router.js"
 
 const app = express();
 
@@ -14,6 +15,9 @@ app.use(cookieParser())
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/upload", uploadRouter);
+
+app.use("/property/like", propertyLike)
+
 app.use("/property", propertyRouter);
 
 app.use(handleError)
