@@ -71,6 +71,16 @@ class PropertyService {
 
         return saved;
     }
+
+    async getPropertiesNearMe(latitude: number, longitude: number) {
+        if(!latitude || !longitude || typeof latitude !== "number" || typeof longitude !== "number") {
+            throw new AppError("Location coordinates invalid", 400);
+        }
+
+        const properties = await propertyRepository.getPropertiesNearMe(latitude, longitude);
+
+        return properties;
+    }
 }
 
 export const propertyService = new PropertyService();

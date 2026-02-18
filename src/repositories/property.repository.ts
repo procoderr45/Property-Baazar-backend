@@ -83,6 +83,31 @@ class PropertyRepository {
         return savedProperties;
 
     }
+
+    async getPropertiesNearMe(latitude: number, longitude: number): Promise<PropertyType[]> {
+        const properties =
+            await PropertyModel.find({
+                "address.location": {
+                    $near: {
+                        $geometry: {
+                            type: "Point",
+                            coordinates: [longitude, latitude]
+                        },
+                        $maxDistance: 50000
+                    }
+                }
+            })
+                .populate({
+                    path: "amenities",
+                    select: "-createdAt -updatedAt"
+                })
+                .populate({
+                    path: "postedBy",
+                    select: propertyPostedByUserData
+                })
+
+        return properties;
+    }
 }
 
 export const propertyRepository = new PropertyRepository();
