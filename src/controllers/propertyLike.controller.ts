@@ -28,6 +28,30 @@ const likeProperty = catchAsync(async (req: Request, res: Response, next: NextFu
 
 })
 
+const unlikeProperty = catchAsync(async(req: Request, res: Response, next: NextFunction) => {
+    const propertyId = req.params.propertyId as string;
+    const userId = req.user?._id;
+
+    if(!userId) {
+        throw new AppError("Please login", 403);
+    }
+
+    if(!propertyId) {
+        throw new AppError("Property id not found", 404);
+    }
+
+    const newLikes = await propertyLikeService.unlikeProperty(propertyId, userId.toString());
+
+    const apiResponse: ApiResponseType<number> = {
+        message: "",
+        status: "success",
+        data: newLikes
+    }
+
+    return sendResponse(res, 200, apiResponse);
+})
+
 export default {
-    likeProperty
+    likeProperty,
+    unlikeProperty
 }
