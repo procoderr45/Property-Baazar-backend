@@ -16,5 +16,6 @@ router.post("/save/:propertyId", isLoggedIn, propertyController.saveProperty);
 router.post("/unsave/:propertyId", isLoggedIn, propertyController.unSaveProperty);
 router.get("/saved/my", isLoggedIn, propertyController.getMySavedProperties);
 
+router.delete("/:propertyId", isLoggedIn, isPropertyAuthorized, propertyController.deleteProperty);
 
 export default router;

@@ -53,11 +53,11 @@ export function validateNewPropertyData(propertyData: AddPropertyType) {
         throw new AppError("Please provide valid property sell type", 400)
     }
 
-    if ((!type) || type !== "Open plot" && type !== "Agricultural Plot" && type !== "Mixed-use Plot" && (!age || !facing)) {
+    if (category !== "plot" && (!age || typeof age !== "number" && age < 0)) {
         throw new AppError("Please provide valid property facing direction and age (in years).", 400);
     }
 
-    if (facing && (facing !== "south" && facing !== "east" && facing !== "north" && facing !== "west")) {
+    if ((category !== "plot") && facing && (facing !== "south" && facing !== "east" && facing !== "north" && facing !== "west")) {
         throw new AppError("Please provide valid property facing direction", 400);
     }
 

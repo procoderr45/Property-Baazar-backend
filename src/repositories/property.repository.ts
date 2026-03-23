@@ -4,6 +4,7 @@ import SavePropertyModel from "../models/propertySavemodel.js";
 import { AddPropertyType, EditPropertyType, PropertyDoc, PropertyType } from "../types/property/property.type.js";
 import { PropertySaveType } from "../types/save.type.js";
 import { propertyPostedByUserData } from "../utils/modules/property/property.utils.js";
+import { AppError } from "../utils/error/AppError.js";
 
 class PropertyRepository {
     async createProperty(postedBy: string, propertyData: AddPropertyType): Promise<PropertyType> {
@@ -107,6 +108,24 @@ class PropertyRepository {
                 })
 
         return properties;
+    }
+
+    async deleteProperty(propertyId: string): Promise<boolean> {
+        const deletedProperty = await PropertyModel.findByIdAndUpdate(propertyId, {
+            isDeleted: true,
+        }, {
+            returnDocument: "after"
+        })
+
+        if(!deletedProperty) {
+            throw new AppError("Property not found", 404);
+        }
+
+        if(!deletedProperty.isDeleted) {
+            throw new AppError("Unable to delete property. Please try after some time.", 400);
+        }
+
+        return true;
     }
 }
 

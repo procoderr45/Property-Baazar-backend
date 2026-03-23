@@ -163,6 +163,21 @@ const getPropertiesNearMe = catchAsync(async (req: Request, res: Response, next:
 
 })
 
+const deleteProperty = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const propertyId = req.params.propertyId as string;
+
+    const isDeleted = await propertyService.deleteProperty(propertyId);
+
+    const apiResponse: ApiResponseType<Object> = {
+        status: "success",
+        message: "Property deleted successfully",
+        data: isDeleted
+    }
+
+    return sendResponse(res, 200, apiResponse);
+
+})
+
 export default {
     createProperty,
     getProperty,
@@ -170,5 +185,6 @@ export default {
     saveProperty,
     unSaveProperty,
     getMySavedProperties,
-    getPropertiesNearMe
+    getPropertiesNearMe,
+    deleteProperty
 }
