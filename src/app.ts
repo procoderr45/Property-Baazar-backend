@@ -16,7 +16,8 @@ app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/upload", uploadRouter);
 
-app.use("/property/like", propertyLike)
+app.use("/property/like", propertyLike);
+app.use("/property/unlike", propertyLike);
 
 app.use("/property", propertyRouter);
 

@@ -4,5 +4,6 @@ import isLoggedIn from "../middlewares/isLoggedIn.js";
 const router = express.Router();
 
 router.post("/:propertyId", isLoggedIn, propertyLikeController.likeProperty);
+router.delete("/:propertyId", isLoggedIn, propertyLikeController.unlikeProperty);
 
 export default router;
