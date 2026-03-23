@@ -81,6 +81,11 @@ class PropertyService {
 
         return properties;
     }
+
+    async deleteProperty(propertyId: string) {
+        const isDeleted = await propertyRepository.deleteProperty(propertyId);
+        return isDeleted;
+    }
 }
 
 export const propertyService = new PropertyService();
