@@ -1,5 +1,7 @@
 import { SearchProfileKeywordType, UpdateProfileType } from "../types/user.type.js";
 
+export const BASE_URL = "http://localhost:3000";
+
 export const MAX_NUMBER_LENGTH = 12;
 export const MAX_BIO_LENGTH = 500;
 export const MAX_PIN_CODE_VALUE = 999999;
@@ -47,9 +49,11 @@ export const validFileTypes = ["image", "video"] as const;
 
 export const validImageExtensions = ["jpeg", "jpg", "webp", "avif"] as const;
 export const validVideoExtensions = ["mp4"] as const;
-export const validFileExtensions = [...validImageExtensions, ...validVideoExtensions] as  const;
+export const validFileExtensions = [...validImageExtensions, ...validVideoExtensions] as const;
 
 export const MAX_IMAGE_SIZE_LIMIT = 10; // in MB
 export const MAX_VIDEO_SIZE_LIMIT = 100; // in MB
 
 export const BASE_BUCKET_KEY = "uploads"
+
+export const PROPERTIES_PER_PAGE_LIMIT = 10;

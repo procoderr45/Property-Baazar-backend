@@ -1,6 +1,7 @@
 import AmenityModel from "../models/amenityType.model.js";
 import { propertyRepository } from "../repositories/property.repository.js";
 import { AddPropertyType, EditPropertyType, PropertyDoc, PropertyType } from "../types/property/property.type.js";
+import { PROPERTIES_PER_PAGE_LIMIT } from "../utils/constants.js";
 import { AppError } from "../utils/error/AppError.js";
 import { validateEditPropertyData, validateNewPropertyData } from "../utils/modules/property/property.utils.js";
 
@@ -85,6 +86,30 @@ class PropertyService {
     async deleteProperty(propertyId: string) {
         const isDeleted = await propertyRepository.deleteProperty(propertyId);
         return isDeleted;
+    }
+
+    async getFeedProperties(filters: any) {
+        const page = filters.page || 1;
+        const validFilters: any = {}
+
+        if (filters.search) {
+            validFilters.title = {
+                $regex: filters.search,
+                $options: "i"
+            }
+        }
+
+        if (filters.category && filters.category !== "all") {
+            validFilters.category = filters.category
+        }
+
+        if (filters.sellType && filters.sellType !== "all") {
+            validFilters.sellType = filters.sellType
+        }
+
+        const properties = await propertyRepository.feedProperties(page, validFilters)
+
+        return properties;
     }
 }
 

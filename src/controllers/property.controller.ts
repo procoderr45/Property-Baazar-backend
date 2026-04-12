@@ -27,6 +27,19 @@ const createProperty = catchAsync(async (req: Request, res: Response, next: Next
     sendResponse(res, 201, apiResponse)
 })
 
+const getFeedProperties = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const filters = req.query;
+    const properties = await propertyService.getFeedProperties(filters);
+
+    const apiResponse: ApiResponseType<PropertyType[]> = {
+        status: "success",
+        data: properties,
+        message: "Feed properties"
+    }
+
+    sendResponse(res, 200, apiResponse);
+})
+
 const getProperty = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const propertyId = req.params.id as string;
 
@@ -180,6 +193,7 @@ const deleteProperty = catchAsync(async (req: Request, res: Response, next: Next
 
 export default {
     createProperty,
+    getFeedProperties,
     getProperty,
     editProperty,
     saveProperty,
@@ -188,3 +202,4 @@ export default {
     getPropertiesNearMe,
     deleteProperty
 }
+
