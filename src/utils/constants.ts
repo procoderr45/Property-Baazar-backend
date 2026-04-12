@@ -1,5 +1,7 @@
 import { SearchProfileKeywordType, UpdateProfileType } from "../types/user.type.js";
 
+export const BASE_URL = "http://localhost:3000";
+
 export const MAX_NUMBER_LENGTH = 12;
 export const MAX_BIO_LENGTH = 500;
 export const MAX_PIN_CODE_VALUE = 999999;

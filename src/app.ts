@@ -5,9 +5,15 @@ import userRouter from "./routes/user.route.js"
 import cookieParser from "cookie-parser"
 import uploadRouter from "./routes/upload.route.js"
 import propertyRouter from "./routes/property.route.js"
+import cors from "cors"
 import propertyLike from "./routes/propertyLike.router.js"
+import { BASE_URL } from "./utils/constants.js";
 
 const app = express();
+
+app.use(cors({
+    origin: BASE_URL
+}))
 
 app.use(express.json());
 app.use(cookieParser())
