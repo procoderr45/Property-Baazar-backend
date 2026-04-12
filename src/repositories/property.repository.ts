@@ -5,6 +5,7 @@ import { AddPropertyType, EditPropertyType, PropertyDoc, PropertyType } from "..
 import { PropertySaveType } from "../types/save.type.js";
 import { propertyPostedByUserData } from "../utils/modules/property/property.utils.js";
 import { AppError } from "../utils/error/AppError.js";
+import { PROPERTIES_PER_PAGE_LIMIT } from "../utils/constants.js";
 
 class PropertyRepository {
     async createProperty(postedBy: string, propertyData: AddPropertyType): Promise<PropertyType> {
@@ -126,6 +127,18 @@ class PropertyRepository {
         }
 
         return true;
+    }
+
+    async feedProperties(page: number, filters: any) {
+        const skip = (page - 1) * PROPERTIES_PER_PAGE_LIMIT;
+
+        const properties = await PropertyModel
+            .find(filters)
+            .select("title description price address furnishingStatus areaInSquareMeter sellType")
+            .skip(skip)
+            .limit(PROPERTIES_PER_PAGE_LIMIT)
+            .sort({ createdAt: -1 })
+        return properties;
     }
 }
 
