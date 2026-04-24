@@ -3,7 +3,7 @@ import PropertyModel from "../models/property.model.js";
 import SavePropertyModel from "../models/propertySavemodel.js";
 import { AddPropertyType, EditPropertyType, PropertyDoc, PropertyType } from "../types/property/property.type.js";
 import { PropertySaveType } from "../types/save.type.js";
-import { propertyPostedByUserData } from "../utils/modules/property/property.utils.js";
+import { getSignedUrlsBatch, propertyPostedByUserData } from "../utils/modules/property/property.utils.js";
 import { AppError } from "../utils/error/AppError.js";
 import { PROPERTIES_PER_PAGE_LIMIT } from "../utils/constants.js";
 
@@ -18,7 +18,6 @@ class PropertyRepository {
 
         return property;
     }
-
     async getProperty(propertyId: string): Promise<PropertyType | null> {
         const property = await PropertyModel
             .findById(propertyId)
@@ -30,10 +29,21 @@ class PropertyRepository {
                 path: "amenities",
                 select: "_id title iconUrl"
             })
+            .lean(); // IMPORTANT for performance
 
-        return property;
+        if (!property) return null;
+
+        const [signedImages, signedVideos] = await Promise.all([
+            getSignedUrlsBatch(property.images || []),
+            getSignedUrlsBatch(property.videos || [])
+        ]);
+
+        return {
+            ...property,
+            images: signedImages,
+            videos: signedVideos
+        };
     }
-
     async editProperty(propertyId: string, newPropertyData: EditPropertyType): Promise<PropertyDoc | null> {
         const updatedProperty = await PropertyModel.findByIdAndUpdate<PropertyDoc>(propertyId, {
             ...newPropertyData
@@ -118,11 +128,11 @@ class PropertyRepository {
             returnDocument: "after"
         })
 
-        if(!deletedProperty) {
+        if (!deletedProperty) {
             throw new AppError("Property not found", 404);
         }
 
-        if(!deletedProperty.isDeleted) {
+        if (!deletedProperty.isDeleted) {
             throw new AppError("Unable to delete property. Please try after some time.", 400);
         }
 

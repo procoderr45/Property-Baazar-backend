@@ -45,9 +45,9 @@ export const validImageUploadContentTypes = ["image/png", "image/jpeg", "image/w
 export const validVideoUploadContentTypes = ["video/mp4"] as const;
 
 export const validFileContentTypes = [...validImageUploadContentTypes, ...validVideoUploadContentTypes];
-export const validFileTypes = ["image", "video"] as const;
+export const validFileTypes = ["image", "video", "pdf"] as const;
 
-export const validImageExtensions = ["jpeg", "jpg", "webp", "avif"] as const;
+export const validImageExtensions = ["jpeg", "jpg", "webp", "avif", "png"] as const;
 export const validVideoExtensions = ["mp4"] as const;
 export const validFileExtensions = [...validImageExtensions, ...validVideoExtensions] as const;
 

@@ -1,11 +1,11 @@
-import { PutObjectCommand } from "@aws-sdk/client-s3"
+import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3"
 import { UploadFileContentType } from "../../types/aws.type.js"
 import { getTypedEnv } from "../../config/env.js"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { s3Client } from "../../config/s3Client.js"
+const bucketName = getTypedEnv().AWS_BUCKET;
 
 export const getUploadSignedUrl = async (fileKey: string, fileContentType: UploadFileContentType) => {
-    const bucketName = getTypedEnv().AWS_BUCKET;
 
     const command = new PutObjectCommand({
         Bucket: bucketName,
@@ -18,3 +18,14 @@ export const getUploadSignedUrl = async (fileKey: string, fileContentType: Uploa
     });
     return url;
 }
+
+export const getSignedFileUrl = async (key: string) => {
+    const command = new GetObjectCommand({
+        Bucket: bucketName,
+        Key: key,
+    });
+
+    return await getSignedUrl(s3Client, command, {
+        expiresIn: 60 * 60,
+    });
+};

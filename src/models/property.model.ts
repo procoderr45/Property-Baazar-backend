@@ -85,8 +85,10 @@ const propertySchema = new mongoose.Schema<PropertyType>({
         ref: "AmenityType"
     },
     nearByAttractions: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: "nearbyAttraction"
+        type: [{
+            attraction: String,
+            distance: Number
+        }],
     },
     verificationStatus: {
         type: String,
@@ -133,6 +135,14 @@ const propertySchema = new mongoose.Schema<PropertyType>({
     parkingAvailable: {
         type: Boolean,
         default: false
+    },
+    images: {
+        type: [String],
+        default: []
+    },
+    videos: {
+        type: [String],
+        default: []
     }
 }, {
     timestamps: true

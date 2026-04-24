@@ -12,7 +12,9 @@ import { BASE_URL } from "./utils/constants.js";
 const app = express();
 
 app.use(cors({
-    origin: BASE_URL
+    origin: BASE_URL,
+    methods: "*",
+    credentials: true
 }))
 
 app.use(express.json());

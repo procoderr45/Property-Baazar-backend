@@ -1,8 +1,10 @@
+import { getSignedFileUrl } from "../../../integrations/aws/s3.js";
 import { AddPropertyType, EditPropertyType } from "../../../types/property/property.type.js";
 import { AppError } from "../../error/AppError.js";
 import { validPropertyCategories, validPropertyOwnerTypes } from "./property.constants.js";
 
 export function validateNewPropertyData(propertyData: AddPropertyType) {
+    console.log("Property data", propertyData);
 
     //TODO: install zod and apply zop validations
     let { title, description, price, address, category, type, googleMapLink, geoLocation, furnishingStatus, areaInSquareMeter, facing } = propertyData;
@@ -122,3 +124,8 @@ export function validateEditPropertyData(propertyData: EditPropertyType) {
 }
 
 export const propertyPostedByUserData = "name _id isEmailVerified role photoUrl accountStatus contact.countryCode contact.isMobileVerified"
+
+
+export const getSignedUrlsBatch = async (keys: string[]) => {
+    return Promise.all(keys.map(key => getSignedFileUrl(key)));
+};

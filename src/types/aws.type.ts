@@ -17,3 +17,8 @@ export type FileType = typeof validFileTypes[number];
 
 export type FileCategory = "property" | "user" | "transaction" | "recording";
 export type FileExtension = typeof validFileExtensions[number];
+
+export type BulkFileUploadRequestType = {
+    propertyId: string;
+    files: FileUploadRequestType[];
+};

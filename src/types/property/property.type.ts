@@ -78,6 +78,8 @@ export type AddPropertyType = {
     sellType: PropertySellType;
     managedBy: ObjectId[]; // id of users who have posted this property
     parkingAvailable: boolean;
+    images: string[];
+    videos: string[];
     
 }
 
